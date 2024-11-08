@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone with Calculator</title>
+    <style>
+        body {
+            background-image: url('obrazky/stul.jpg');
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f5;
+            font-family: Arial, sans-serif;
+        }
+        .phone {
+            width: 290px;
+            height: 520px;
+            background-color: #fff;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 8px solid black;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 50px;
+            
+        }
+        .notch {
+            width: 120px;
+            height: 30px;
+            background-color: #000000;
+            border-radius: 0 0 15px 15px;
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+        .sensor {
+            width: 5px;
+            height: 5px;
+            background-color: #665;
+            border-radius: 50%;
+        }
+        .status-bar {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            padding: 3px 10px;
+            color: #000000;
+        }
+        .power-button {
+            width: 8px;
+            height: 70px;
+            background-color: #000000;
+            position: absolute;
+            right: -11px;
+            top: 29%;
+            transform: translateY(-50%);
+            border-radius: 2px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+        .volume-button-up, .volume-button-down {
+            width: 6px;
+            height: 40px;
+            background-color: #000000;
+            position: absolute;
+            left: -11px;
+            transform: translateY(-50%);
+            border-radius: 2px;
+        }
+        .volume-button-up {
+            top: 27%;
+        }
+        .volume-button-down {
+            top: 35%;
+        }
+        .calculator {
+            width: 100%;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .display {
+            width: 90%;
+            height: 60px;
+            background: #000;
+            color: #fff;
+            font-size: 2em;
+            text-align: right;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .buttons {
+            width: 90%;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .button {
+            width: 100%;
+            height: 60px;
+            font-size: 1.5em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #333;
+            color: #fff;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .button.orange {
+            background-color: orange;
+        }
+        .button.gray {
+            background-color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone">
+        <div class="notch">
+            <div class="sensor"></div>
+        </div>
+        <div class="status-bar">
+           <p id="time">11:09</p>
+            <div>
+                <span>📶</span> <span>🛜</span> <span>🔋</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+        <div class="power-button"></div>
+        <div class="volume-button-up"></div>
+        <div class="volume-button-down"></div>
+
+        <div class="calculator">
+            <div class="display" id="display">0</div>
+            <div class="buttons">
+                <div class="button gray" onclick="clearDisplay()">AC</div>
+                <div class="button gray" onclick="clearDisplay()">AC</div>
+                <div class="button gray" onclick="inputValue('%')">%</div>
+                <div class="button orange" onclick="inputValue('/')">÷</div>
+                <div class="button" onclick="inputValue('7')">7</div>
+                <div class="button" onclick="inputValue('8')">8</div>
+                <div class="button" onclick="inputValue('9')">9</div>
+                <div class="button orange" onclick="inputValue('*')">×</div>
+                <div class="button" onclick="inputValue('4')">4</div>
+                <div class="button" onclick="inputValue('5')">5</div>
+                <div class="button" onclick="inputValue('6')">6</div>
+                <div class="button orange" onclick="inputValue('-')">−</div>
+                <div class="button" onclick="inputValue('1')">1</div>
+                <div class="button" onclick="inputValue('2')">2</div>
+                <div class="button" onclick="inputValue('3')">3</div>
+                <div class="button orange" onclick="inputValue('+')">+</div>
+                <div class="button" onclick="inputValue('0')">0</div>
+                <div class="button" onclick="inputValue('.')">.</div>
+                <div class="button orange" onclick="calculate()">=</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+         function updateTime() {
+            var currentTime = new Date();
+            var hours = currentTime.getHours();
+            var minutes = currentTime.getMinutes();
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+
+            var timeString = hours + ':' + minutes;
+            document.getElementById('time').textContent = timeString;
+        }
+
+        setInterval(updateTime, 60000); // Aktualizuje čas každou minutu
+        updateTime(); // Spustí funkci při načtení stránky
+        let display = document.getElementById("display");
+        let currentInput = "0";
+
+        function inputValue(value) {
+            if (value === '±') {
+                currentInput = (parseFloat(currentInput) * -1).toString();
+            } else if (value === '%') {
+                currentInput = (parseFloat(currentInput) / 100).toString();
+            } else if (currentInput === "0") {
+                currentInput = value;
+            } else {
+                currentInput += value;
+            }
+            display.textContent = currentInput;
+        }
+
+        function clearDisplay() {
+            currentInput = "0";
+            display.textContent = currentInput;
+        }
+
+        function calculate() {
+            try {
+                currentInput = eval(currentInput).toString();
+                display.textContent = currentInput;
+            } catch (error) {
+                display.textContent = "Error";
+                currentInput = "0";
+            }
+        }
+    </script>
+</body>
+</html>
