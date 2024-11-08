@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <style>
+       body {
+            background-image: url('obrazky/stul.jpg');
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f5;
+            font-family: Arial, sans-serif;
+        }
+        .phone {
+            width: 7.5cm;
+            height: 15cm;
+            background-color: #fff;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 8px solid black;
+            position: relative;
+        }
+        .notch {
+            width: 120px;
+            height: 30px;
+            background-color: #000000;
+            border-radius: 0 0 15px 15px;
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+        .sensor {
+            width: 0.2cm;
+            height: 0.2cm;
+            background-color: #665;
+            border-radius: 50%;
+        }
+        .status-bar {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.4cm;
+            padding: 3px 10px;
+            color: #bbb;
+        }
+        .power-button {
+            width: 8px;
+            height: 70px;
+            background-color: #000000;
+            position: absolute;
+            right: -11px;
+            top: 29%;
+            transform: translateY(-50%);
+            border-radius: 2px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+        .volume-button-up, .volume-button-down {
+            width: 6px;
+            height: 40px;
+            background-color: #000000;
+            position: absolute;
+            left: -11px;
+            transform: translateY(-50%);
+            border-radius: 2px;
+        }
+        .volume-button-up {
+            top: 27%;
+        }
+        .volume-button-down {
+            top: 35%;
+        }
+        .header {
+            font-size: 1.5em;
+            text-align: center;
+            padding: 10px;
+            color: #333;
+            border-bottom: 1px solid #ccc;
+            position: relative;
+            margin-top: 30px; /* Space for the notch */
+        }
+        .settings-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            font-size: 1.2em;
+            color: #333;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .settings-option:last-child {
+            border-bottom: none;
+        }
+        .settings-option span {
+            color: #007aff;
+        }
+        .toggle-switch {
+            position: relative;
+            width: 40px;
+            height: 20px;
+            background: #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .toggle-switch::before {
+            content: "";
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            top: 1px;
+            left: 1px;
+            transition: transform 0.2s;
+        }
+        .toggle-switch.active {
+            background-color: #4cd964;
+        }
+        .toggle-switch.active::before {
+            transform: translateX(20px);
+        }
+        .additional-settings {
+            text-align: center;
+            font-size: 1.1em;
+            padding: 20px;
+            color: #666;
+        }
+        .settings-option2 {
+            text-align: center;
+            font-size: 1.1em;
+            padding: 20px;
+            color: #666;
+        }
+        .back-arrow {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone">
+        <!-- Notch with Sensor -->
+        <div class="notch">
+            <div class="sensor"></div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            &nbsp;&nbsp;&nbsp;11:09 
+            <div>
+                <span>📶</span> <span>🛜</span> <span>🔋</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+
+        <!-- Side Buttons -->
+        <div class="power-button"></div>
+        <div class="volume-button-up"></div>
+        <div class="volume-button-down"></div>
+
+        <!-- Settings Header and Options -->
+        <div class="header">Settings</div>
+        
+        <div class="settings-option">
+            <span>Airplane Mode</span>
+            <div id="airplane-mode" class="toggle-switch" onclick="toggleSwitch(this)"></div>
+        </div>
+        
+        <div class="settings-option">
+            <span>Wi-Fi</span>
+            <div id="wifi" class="toggle-switch" onclick="toggleSwitch(this)"></div>
+        </div>
+        
+        <div class="settings-option">
+            <span>Bluetooth</span>
+            <div id="bluetooth" class="toggle-switch" onclick="toggleSwitch(this)"></div>
+        </div>
+        
+        <!-- MOS Version -->
+        <div class="settings-option2">
+            <span>MOS verze</span>
+            <span>1.1</span>
+        </div>
+
+        <!-- Back Arrow Image -->
+        <a href="hlavni_telefon.html">
+            <img src="obrazky/leva_sipka.png" alt="Back" class="back-arrow">
+        </a>
+    </div>
+
+    <script>
+        function toggleSwitch(element) {
+            // Check if the element is Airplane Mode
+            if (element.id === "airplane-mode") {
+                element.classList.toggle("active");
+                const wifiSwitch = document.getElementById("wifi");
+                const bluetoothSwitch = document.getElementById("bluetooth");
+
+                if (element.classList.contains("active")) {
+                    // Airplane Mode ON: turn off Wi-Fi and Bluetooth if they are on
+                    wifiSwitch.classList.remove("active");
+                    bluetoothSwitch.classList.remove("active");
+                }
+            } else {
+                // If Airplane Mode is active, prevent toggling Wi-Fi or Bluetooth on
+                const airplaneMode = document.getElementById("airplane-mode");
+                if (airplaneMode.classList.contains("active") && !element.classList.contains("active")) {
+                    // Airplane Mode is on; do nothing when clicking Wi-Fi or Bluetooth to turn on
+                    return;
+                }
+                // Toggle the switch normally if Airplane Mode is not blocking it
+                element.classList.toggle("active");
+            }
+        }
+    </script>
+</body>
+</html>
