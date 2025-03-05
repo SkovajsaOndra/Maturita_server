@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird</title>
+    <style>
+        body {
+            background-image: url('obrazky/stul.jpg');
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f5;
+            font-family: Arial, sans-serif;
+        }
+        .phone {
+            width: 7.5cm;
+            height: 570px;
+            background-image: url('obrazky/flappy-bird-backgrounds-flappy-bird.jpg'); background-size: cover;
+            border-radius: 32px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 8px solid black;
+            position: relative;
+        }
+        .notch {
+            width: 120px;
+            height: 30px;
+            background-color: #000000;
+            border-radius: 0 0 15px 15px;
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+        .sensor {
+            width: 0.2cm;
+            height: 0.2cm;
+            background-color: #665;
+            border-radius: 50%;
+        }
+        .status-bar {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.4cm;
+            padding: 3px 10px;
+            color: #000000;
+        }
+        .game-canvas {
+            display: block;
+            margin: 0;
+            padding: 0;
+            background-image: url('obrazky/flappy-bird-backgrounds-flappy-bird.jpg'); background-size: cover;
+            border-radius: 10px;
+            height: 570px;
+            width: 284px;
+            border-radius: 5%;
+        }
+        .game-over {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: black;
+            font-size: 1.5rem;
+        }
+        .game-over img {
+            width: 200px;
+            margin-bottom: 20px;
+        }
+        .score-display {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .reset-button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .reset-button:hover {
+            background-color: #0056b3;
+        }
+        .bird-selection {
+            margin-top: 10px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            justify-items: center;
+        }
+        .bird-selection img {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 5px;
+        }
+        .bird-selection img.selected {
+            border-color: #007bff;
+        }
+        .difficulty-selection {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+        .difficulty-button {
+            padding: 5px 10px;
+            font-size: 1rem;
+            background-color: #007bff;
+            color: #ffffff;
+            border: 1px solid #333;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .difficulty-button.selected {
+            background-color: #ffffff;
+            color: rgb(255, 255, 255);
+        }
+        .power-button {
+            width: 8px;
+            height: 70px;
+            background-color: #000000;
+            position: absolute;
+            right: -11px;
+            top: 29%;
+            transform: translateY(-50%);
+            border-radius: 2px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+        .volume-button-up, .volume-button-down {
+            width: 6px;
+            height: 40px;
+            background-color: #000000;
+            position: absolute;
+            left: -11px;
+            transform: translateY(-50%);
+            border-radius: 2px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+        .volume-button-up {
+            top: 27%;
+        }
+        .volume-button-down {
+            top: 35%;
+        }
+        .start-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px 40px;
+        font-size: 2rem;
+        color: white;
+        background-color: #007bff;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        transition: background-color 0.3s ease;
+        animation: pulse 1.5s infinite;
+        z-index: 2;
+    }
+
+    .start-button:hover {
+        background-color: #0056b3;
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+    }
+    .back-arrow {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+
+    
+    
+    </style>
+</head>
+<body>
+    <div class="phone">
+        <div class="notch">
+            <div class="sensor"></div>
+        </div>
+        <div class="status-bar">
+        <p id="time" >11:09 </p>
+            <div>
+                <span>📶</span> <span>🛜</span> <span>🔋</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+        
+        <canvas id="gameCanvas" class="game-canvas" width="300" height="500"></canvas>
+        
+        <div class="game-over" id="gameOverScreen">
+            <img src="obrazky/game_over.png" alt="Game Over">
+            <div class="score-display" id="scoreDisplay"></div>
+            <button class="reset-button" id="resetButton">Reset</button>
+            <div class="bird-selection" id="birdSelection">
+                <img src="obrazky/bird1.png" class="bird-option" data-bird="obrazky/bird1.png" alt="Bird 1">
+                <img src="obrazky/bird2.png" class="bird-option" data-bird="obrazky/bird2.png" alt="Bird 2">
+                <img src="obrazky/bird3.png" class="bird-option" data-bird="obrazky/bird3.png" alt="Bird 3">
+                <img src="obrazky/bird4.png" class="bird-option" data-bird="obrazky/bird4.png" alt="Bird 4">
+                <img src="obrazky/bird5.png" class="bird-option" data-bird="obrazky/bird5.png" alt="Bird 5">
+                <img src="obrazky/bird6.png" class="bird-option" data-bird="obrazky/bird6.png" alt="Bird 6">
+            </div>
+            <div class="difficulty-selection">
+                <button class="difficulty-button" data-gap="220" id="easyButton">Lehká</button>
+                <button class="difficulty-button" data-gap="180" id="mediumButton">Střední</button>
+                <button class="difficulty-button" data-gap="120" id="hardButton">Těžká</button>
+            </div>
+        </div>
+
+        <!-- Tlačítko Start -->
+        <button class="start-button" id="startButton">Start</button>
+
+        <div class="power-button"></div>
+        <div class="volume-button-up"></div>
+        <div class="volume-button-down"></div>
+        <a href="hlavni_telefon.html">
+            <img src="obrazky/leva_sipka.png" alt="Back" class="back-arrow">
+        </a>
+    </div>
+    
+
+    <script>
+        function updateTime() {
+            var currentTime = new Date();
+            var hours = currentTime.getHours();
+            var minutes = currentTime.getMinutes();
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+
+            var timeString = hours + ':' + minutes;
+            document.getElementById('time').textContent = timeString;
+        }
+
+        setInterval(updateTime, 60000); // Aktualizuje čas každou minutu
+        updateTime(); // Spustí funkci při načtení stránky
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const gameOverScreen = document.getElementById("gameOverScreen");
+        const scoreDisplay = document.getElementById("scoreDisplay");
+        const resetButton = document.getElementById("resetButton");
+        const birdSelection = document.getElementById("birdSelection");
+        const difficultyButtons = document.querySelectorAll(".difficulty-button");
+        const startButton = document.getElementById("startButton");
+
+        let birdImage = new Image();
+        birdImage.src = "obrazky/bird1.png";
+
+        let birdY = 250;
+        let birdVelocity = 0;
+        const gravity = 0.06;
+        const jump = -3;
+        const birdX = 50;
+        const birdWidth = 30;
+        const birdHeight = 30;
+        const pipeWidth = 50;
+        let gapHeight = 200;
+        let pipes = [];
+        let score = 0;
+        let gameOver = false;
+        let gameStarted = false;
+        const pipeSpeed = 1;
+
+        function generatePipe() {
+            const pipeY = Math.random() * (canvas.height - gapHeight - 200) + 100;
+            pipes.push({ x: canvas.width, y: pipeY });
+        }
+
+        function gameLoop() {
+            if (!gameStarted || gameOver) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            birdVelocity += gravity;
+            birdY += birdVelocity;
+
+            ctx.drawImage(birdImage, birdX - birdWidth / 2, birdY - birdHeight / 2, birdWidth, birdHeight);
+
+            if (birdY > canvas.height || birdY < 0) {
+                endGame();
+            }
+
+            pipes.forEach(pipe => {
+                ctx.fillStyle = "green";
+                ctx.fillRect(pipe.x, 0, pipeWidth, pipe.y);
+                ctx.fillRect(pipe.x, pipe.y + gapHeight, pipeWidth, canvas.height - pipe.y - gapHeight);
+                pipe.x -= pipeSpeed;
+
+                if (
+                    birdX + birdWidth / 2 > pipe.x &&
+                    birdX - birdWidth / 2 < pipe.x + pipeWidth &&
+                    (birdY - birdHeight / 2 < pipe.y || birdY + birdHeight / 2 > pipe.y + gapHeight)
+                ) {
+                    endGame();
+                }
+
+                if (pipe.x + pipeWidth < 0) {
+                    pipes.shift();
+                    score++;
+                }
+            });
+
+            if (pipes.length === 0 || pipes[pipes.length - 1].x < canvas.width - 270) {
+                generatePipe();
+            }
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        function endGame() {
+            gameOver = true;
+            gameOverScreen.style.display = "block";
+            scoreDisplay.textContent = `Score: ${score}`;
+        }
+
+        function resetGame() {
+            birdY = 250;
+            birdVelocity = 0;
+            pipes = [];
+            score = 0;
+            gameOver = false;
+            gameStarted = true; // Ponechá hru v zapnutém stavu pro další hru
+            gameOverScreen.style.display = "none";
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            gameLoop(); // Restartuje herní smyčku
+        }
+
+        startButton.addEventListener("click", () => {
+            gameStarted = true;
+            gameLoop();
+            startButton.style.display = "none"; // Skryje tlačítko Start trvale
+        });
+
+        document.addEventListener("click", () => {
+            if (gameStarted && !gameOver) birdVelocity = jump;
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (e.code === "Space" && !gameOver) {
+                if (!gameStarted) {
+                    gameStarted = true;
+                    gameLoop();
+                }
+                birdVelocity = jump;
+            }
+        });
+
+        birdSelection.addEventListener("click", (e) => {
+            if (e.target.classList.contains("bird-option")) {
+                document.querySelectorAll(".bird-option").forEach(img => img.classList.remove("selected"));
+                e.target.classList.add("selected");
+                birdImage.src = e.target.getAttribute("data-bird");
+            }
+        });
+
+        difficultyButtons.forEach(button => {
+            button.addEventListener("click", (e) => {
+                difficultyButtons.forEach(btn => btn.classList.remove("selected"));
+                e.target.classList.add("selected");
+                gapHeight = parseInt(e.target.getAttribute("data-gap"));
+            });
+        });
+
+        resetButton.addEventListener("click", resetGame);
+    </script>
+</body>
+</html>
