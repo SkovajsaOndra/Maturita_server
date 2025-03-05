@@ -133,6 +133,17 @@
         .button.gray {
             background-color: gray;
         }
+       
+        .back-arrow {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+
+
     </style>
 </head>
 <body>
@@ -174,8 +185,11 @@
                 <div class="button orange" onclick="calculate()">=</div>
             </div>
         </div>
+    
+    <a href="hlavni_telefon.html">
+        <img src="obrazky/leva_sipka.png" alt="Back" class="back-arrow">
+    </a>
     </div>
-
     <script>
          function updateTime() {
             var currentTime = new Date();
