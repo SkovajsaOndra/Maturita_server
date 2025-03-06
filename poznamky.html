@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Poznámky</title>
+    <style>
+        body {
+            background-image: url('obrazky/stul.jpg');
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .phone {
+            width: 7.5cm;
+            height: 570px;
+            background-color: #fff;
+            border-radius: 32px;
+            border: 8px solid black;
+            position: relative;
+            overflow: hidden;
+        }
+        .notch {
+            width: 120px;
+            height: 30px;
+            background-color: black;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 0 0 15px 15px;
+            z-index: 5;
+        }
+        .status-bar {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+        .header {
+            text-align: center;
+            font-size: 1.5em;
+            padding: 10px;
+            padding-top: 40px;
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #ddd;
+        }
+        .notes-container {
+            overflow-y: auto;
+            height: 440px;
+            padding: 5px;
+        }
+        .note {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            border-bottom: 1px solid #ddd;
+            font-size: 1.2em;
+            background-color: #fff;
+        }
+        .note:hover {
+            background-color: #f0f0f0;
+        }
+        .delete-icon {
+            cursor: pointer;
+            font-size: 1.2em;
+            color: red;
+        }
+        .back-arrow {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            width: 30px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .add-note-bar {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            padding: 5px;
+            box-sizing: border-box;
+            background-color: #f5f5f5;
+            border-top: 1px solid #ddd;
+            align-items: center;
+        }
+        .add-note-bar input {
+            flex: 1;
+            padding: 8px;
+            font-size: 1em;
+        }
+        .add-note-bar img {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+        .power-button, .volume-button-up, .volume-button-down {
+            position: absolute;
+            background-color: black;
+            z-index: 15;
+            border-radius: 2px;
+        }
+        .power-button {
+            width: 8px;
+            height: 70px;
+            right: -15px;
+            top: 180px;
+        }
+        .volume-button-up {
+            width: 6px;
+            height: 40px;
+            left: -15px;
+            top: 150px;
+        }
+        .volume-button-down {
+            width: 6px;
+            height: 40px;
+            left: -15px;
+            top: 200px;
+        }
+    </style>
+</head>
+<body>
+<div class="phone">
+    <div class="notch"></div>
+    <div class="status-bar">
+        <span id="time">11:09</span>
+        <span>📶 🛜 🔋</span>
+    </div>
+
+    <div class="header">Poznámky</div>
+
+    <div class="notes-container" id="notesContainer"></div>
+
+    <div class="add-note-bar">
+        <input type="text" id="noteInput" placeholder="Zadejte poznámku">
+        <img src="obrazky/plusko.png" alt="Přidat" onclick="addNote()">
+    </div>
+
+    <a href="hlavni_telefon.html">
+        <img src="obrazky/leva_sipka.png" alt="Back" class="back-arrow">
+    </a>
+
+    <div class="power-button"></div>
+    <div class="volume-button-up"></div>
+    <div class="volume-button-down"></div>
+</div>
+
+<script>
+    function updateTime() {
+        const now = new Date();
+        document.getElementById('time').textContent = now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
+    }
+    setInterval(updateTime, 60000);
+    updateTime();
+
+    const notesContainer = document.getElementById('notesContainer');
+    const noteInput = document.getElementById('noteInput');
+
+    function loadNotes() {
+        const notes = JSON.parse(localStorage.getItem('notes')) || [];
+        notesContainer.innerHTML = '';
+        notes.forEach((note, index) => {
+            const div = document.createElement('div');
+            div.className = 'note';
+
+            const noteText = document.createElement('span');
+            noteText.textContent = note;
+
+            const deleteIcon = document.createElement('span');
+            deleteIcon.textContent = '🗑️';
+            deleteIcon.className = 'delete-icon';
+            deleteIcon.onclick = () => deleteNote(index);
+
+            div.appendChild(noteText);
+            div.appendChild(deleteIcon);
+            notesContainer.appendChild(div);
+        });
+    }
+
+    function addNote() {
+        const text = noteInput.value.trim();
+        if (text) {
+            const notes = JSON.parse(localStorage.getItem('notes')) || [];
+            notes.push(text);
+            localStorage.setItem('notes', JSON.stringify(notes));
+            noteInput.value = '';
+            loadNotes();
+        }
+    }
+
+    function deleteNote(index) {
+        const notes = JSON.parse(localStorage.getItem('notes')) || [];
+        notes.splice(index, 1);
+        localStorage.setItem('notes', JSON.stringify(notes));
+        loadNotes();
+    }
+
+    loadNotes();
+</script>
+</body>
+</html>
