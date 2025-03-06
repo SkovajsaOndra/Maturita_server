@@ -52,51 +52,70 @@
             position: absolute;
             top: 30px;
         }
-        .start-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 15px 35px;
-            font-size: 1.5rem;
-            color: white;
-            background-color: #007bff;
-            border: none;
-            border-radius: 16px;
-            cursor: pointer;
-            z-index: 10;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
-        .back-arrow {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            width: 30px;
-            cursor: pointer;
-            z-index: 10;
-        }
         .game-over-screen {
             display: none;
             position: absolute;
-            top: 35%;
+            top: 40%;
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            background-color: white;
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            background: none;
             z-index: 15;
         }
         .game-over-screen img {
             width: 150px;
-            margin-bottom: 10px;
         }
-        .game-over-screen button, .game-over-screen select {
-            margin: 5px;
-            padding: 8px 16px;
-            font-size: 1rem;
+        .game-over-screen p {
+            color: black;
+            font-size: 18px;
+            font-weight: bold;
+            text-shadow: none;
+        }
+        .skin-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 5px;
+        }
+        .skin-buttons img {
+            width: 30px;
+            height: 30px;
             cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .skin-buttons img.selected {
+            border-color: yellow;
+        }
+        .difficulty-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        .difficulty-buttons button {
+            padding: 8px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: 2px solid #0056b3;
+            border-radius: 5px;
+        }
+        .difficulty-buttons button.selected {
+            background-color: #ffcc00;
+            border-color: #ff9900;
+            color: black;
+            font-weight: bold;
+        }
+        .reset-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -106,49 +125,42 @@
         <div class="notch"></div>
         <div class="status-bar">
             <span id="time">11:09</span>
-            <span>📶 🛜 🔋</span>
+            <span>📶 🥼 🔋</span>
         </div>
         <canvas id="gameCanvas" width="284" height="540"></canvas>
-        <button class="start-button" id="startButton">Start</button>
         <div class="game-over-screen" id="gameOverScreen">
             <img src="obrazky/game_over.png" alt="Game Over">
             <p>Skóre: <span id="scoreDisplay">0</span></p>
-            <label>Skin míčku:</label>
-            <select id="skinSelect">
-                <option value="obrazky/fotball.png">Fotbal</option>
-                <option value="obrazky/basketbalak.png">Basketbal</option>
-                <option value="obrazky/florbal.png">Florbal</option>
-            </select>
-            <label>Obtížnost:</label>
-            <select id="speedSelect">
-                <option value="1">Lehká</option>
-                <option value="2.5">Střední</option>
-                <option value="4">Těžká</option>
-            </select>
-            <button onclick="resetGame()">Reset</button>
+            <button class="reset-button" onclick="resetGame()">Reset</button>
+            <div class="skin-buttons">
+                <img src="obrazky/fotball.png" onclick="changeSkin(this, 'obrazky/fotball.png')">
+                <img src="obrazky/basketbalak.png" onclick="changeSkin(this, 'obrazky/basketbalak.png')">
+                <img src="obrazky/florbal.png" onclick="changeSkin(this, 'obrazky/florbal.png')">
+            </div>
+            <div class="difficulty-buttons">
+                <button onclick="setDifficulty(1)" data-speed="1">Lehká</button>
+                <button onclick="setDifficulty(2.5)" data-speed="2.5">Střední</button>
+                <button onclick="setDifficulty(4)" data-speed="4">Těžká</button>
+            </div>
         </div>
-        <a href="hlavni_telefon.html">
-            <img src="obrazky/leva_sipka.png" alt="Back" class="back-arrow">
-        </a>
     </div>
 </div>
 
 <script>
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
-    const startButton = document.getElementById('startButton');
 
     let paddleWidth = 60, paddleHeight = 10, paddleX = (canvas.width - paddleWidth) / 2;
     let ballX = canvas.width / 2, ballY = canvas.height / 2;
     let ballSpeedX = 1, ballSpeedY = 1, ballImage = new Image();
-    ballImage.src = 'obrazky/fotball.png'; // Výchozí skin
+    ballImage.src = 'obrazky/fotball.png';
 
     let score = 0, gameRunning = false;
 
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillRect(paddleX, 10, paddleWidth, paddleHeight); // horní pálka
-        ctx.fillRect(paddleX, canvas.height - paddleHeight - 10, paddleWidth, paddleHeight); // dolní pálka
+        ctx.fillRect(paddleX, 10, paddleWidth, paddleHeight);
+        ctx.fillRect(paddleX, canvas.height - paddleHeight - 10, paddleWidth, paddleHeight);
         ctx.drawImage(ballImage, ballX - 8, ballY - 8, 16, 16);
         moveBall();
         if (gameRunning) requestAnimationFrame(draw);
@@ -183,26 +195,31 @@
         score = 0;
         ballX = canvas.width / 2;
         ballY = canvas.height / 2;
-        ballSpeedX = parseInt(document.getElementById('speedSelect').value);
-        ballSpeedY = ballSpeedX;
-        ballImage.src = document.getElementById('skinSelect').value;
         document.getElementById('gameOverScreen').style.display = 'none';
         gameRunning = true;
         draw();
     }
 
+    function changeSkin(element, skin) {
+        document.querySelectorAll('.skin-buttons img').forEach(img => img.classList.remove('selected'));
+        element.classList.add('selected');
+        ballImage.src = skin;
+    }
+
+    function setDifficulty(speed) {
+        document.querySelectorAll('.difficulty-buttons button').forEach(btn => btn.classList.remove('selected'));
+        event.target.classList.add('selected');
+        ballSpeedX = speed;
+        ballSpeedY = speed;
+    }
+
     document.addEventListener('mousemove', (e) => {
         const rect = canvas.getBoundingClientRect();
         paddleX = e.clientX - rect.left - paddleWidth / 2;
-        if (paddleX < 0) paddleX = 0;
-        if (paddleX > canvas.width - paddleWidth) paddleX = canvas.width - paddleWidth;
+        paddleX = Math.max(0, Math.min(paddleX, canvas.width - paddleWidth));
     });
 
-    startButton.onclick = () => {
-        startButton.style.display = 'none';
-        gameRunning = true;
-        draw();
-    };
+    resetGame();
 </script>
 </body>
 </html>
