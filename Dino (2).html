@@ -2,88 +2,90 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flappy Bird</title>
+    <title>Dino Game</title>
     <style>
         body {
             background-image: url('obrazky/stul.jpg');
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
             margin: 0;
-            padding: 0;
-            background-color: #f0f0f5;
             font-family: Arial, sans-serif;
+        }
+        .container {
+            position: relative;
         }
         .phone {
             width: 7.5cm;
             height: 570px;
-            background-image: url('obrazky/flappy-bird-backgrounds-flappy-bird.jpg'); background-size: cover;
+            background-color: #fff;
             border-radius: 32px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             border: 8px solid black;
             position: relative;
+            overflow: hidden;
         }
         .notch {
             width: 120px;
             height: 30px;
-            background-color: #000000;
-            border-radius: 0 0 15px 15px;
-            position: absolute;
-            top: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1;
-        }
-        .sensor {
-            width: 0.2cm;
-            height: 0.2cm;
-            background-color: #665;
-            border-radius: 50%;
-        }
-        .status-bar {
-            width: 100%;
+            background-color: black;
             position: absolute;
             top: 0;
-            left: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 0 0 15px 15px;
+            z-index: 5;
+        }
+        .status-bar {
+            position: absolute;
+            top: 0;
+            width: 100%;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            font-size: 0.4cm;
-            padding: 3px 10px;
-            color: #000000;
+            padding: 5px 10px;
+            font-size: 12px;
         }
-        .game-canvas {
+        canvas {
             display: block;
-            margin: 0;
-            padding: 0;
-            background-image: url('obrazky/flappy-bird-backgrounds-flappy-bird.jpg'); background-size: cover;
-            border-radius: 10px;
-            height: 570px;
-            width: 284px;
-            border-radius: 5%;
+            width: 100%;
+            height: 50%;
+            position: absolute;
+            top: 25%;
         }
-        .game-over {
-            display: none;
+        .start-button {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            text-align: center;
-            color: black;
+            padding: 15px 35px;
             font-size: 1.5rem;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .back-arrow {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 30px;
+            cursor: pointer;
+            z-index: 5;
+        }
+        .game-over {
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            display: none;
+            z-index: 10;
         }
         .game-over img {
-            width: 200px;
-            margin-bottom: 20px;
-        }
-        .score-display {
-            font-size: 1rem;
-            color: #333;
+            width: 227px;
+            height: auto;
             margin-bottom: 10px;
         }
         .reset-button {
@@ -95,369 +97,132 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        .reset-button:hover {
-            background-color: #0056b3;
-        }
-        .bird-selection {
-            margin-top: 10px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 5px;
-            justify-items: center;
-        }
-        .bird-selection img {
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            border-radius: 5px;
-        }
-        .bird-selection img.selected {
-            border-color: #007bff;
-        }
-        .difficulty-selection {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 15px;
-        }
-        .difficulty-button {
-            padding: 5px 10px;
-            font-size: 1rem;
-            background-color: #007bff;
-            color: #ffffff;
-            border: 1px solid #333;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .difficulty-button.selected {
-            background-color: #ffffff;
-            color: rgb(255, 255, 255);
+        .power-button, .volume-button-up, .volume-button-down {
+            position: absolute;
+            background-color: black;
+            z-index: 15;
+            border-radius: 2px;
         }
         .power-button {
             width: 8px;
             height: 70px;
-            background-color: #000000;
-            position: absolute;
-            right: -11px;
-            top: 29%;
-            transform: translateY(-50%);
-            border-radius: 2px;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-        }
-        .volume-button-up, .volume-button-down {
-            width: 6px;
-            height: 40px;
-            background-color: #000000;
-            position: absolute;
-            left: -11px;
-            transform: translateY(-50%);
-            border-radius: 2px;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
+            right: -4px;
+            top: 200px;
         }
         .volume-button-up {
-            top: 27%;
+            width: 6px;
+            height: 40px;
+            left: -4px;
+            top: 170px;
         }
         .volume-button-down {
-            top: 35%;
+            width: 6px;
+            height: 40px;
+            left: -4px;
+            top: 220px;
         }
-        .start-button {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 20px 40px;
-        font-size: 2rem;
-        color: white;
-        background-color: #007bff;
-        border: none;
-        border-radius: 12px;
-        cursor: pointer;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-        transition: background-color 0.3s ease;
-        animation: pulse 1.5s infinite;
-        z-index: 2;
-    }
-
-    .start-button:hover {
-        background-color: #0056b3;
-    }
-
-    @keyframes pulse {
-        0%, 100% {
-            transform: translate(-50%, -50%) scale(1);
-        }
-        50% {
-            transform: translate(-50%, -50%) scale(1.1);
-        }
-    }
-    .back-arrow {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-        }
-
-    
-    
     </style>
 </head>
 <body>
+<div class="container">
     <div class="phone">
-        <div class="notch">
-            <div class="sensor"></div>
-        </div>
+        <div class="notch"></div>
         <div class="status-bar">
-        <p id="time" >11:09 </p>
-            <div>
-                <span>📶</span> <span>🛜</span> <span>🔋</span>&nbsp;&nbsp;&nbsp;&nbsp;
-            </div>
+            <span id="time">11:09</span>
+            <span>📶 🛜 🔋</span>
         </div>
-        
-        
-<canvas id="gameCanvas" class="game-canvas" width="300" height="500"></canvas>
-<script>
-    const canvas = document.getElementById("gameCanvas");
-    const ctx = canvas.getContext("2d");
-
-    let dino = { x: 50, y: 440, width: 30, height: 30, velocityY: 0, gravity: 0.5, jumping: false };
-    let obstacles = [];
-    let frame = 0;
-    let gameOver = false;
-
-    function drawDino() {
-        ctx.fillStyle = 'black';
-        ctx.fillRect(dino.x, dino.y, dino.width, dino.height);
-    }
-
-    function generateObstacle() {
-        obstacles.push({ x: canvas.width, y: 460, width: 20, height: 40 });
-    }
-
-    function drawObstacles() {
-        ctx.fillStyle = 'green';
-        for (let obs of obstacles) {
-            obs.x -= 3;
-            ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
-            if (dino.x < obs.x + obs.width &&
-                dino.x + dino.width > obs.x &&
-                dino.y < obs.y + obs.height &&
-                dino.y + dino.height > obs.y) {
-                gameOver = true;
-            }
-        }
-    }
-
-    function update() {
-        if (gameOver) {
-            ctx.fillStyle = 'red';
-            ctx.font = '24px Arial';
-            ctx.fillText('Game Over', 90, 250);
-            return;
-        }
-
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawDino();
-        drawObstacles();
-
-        if (dino.jumping) {
-            dino.velocityY += dino.gravity;
-            dino.y += dino.velocityY;
-            if (dino.y >= 440) {
-                dino.y = 440;
-                dino.jumping = false;
-            }
-        }
-
-        if (frame % 100 === 0) generateObstacle();
-        frame++;
-        requestAnimationFrame(update);
-    }
-
-    document.addEventListener('keydown', function(e) {
-        if (e.code === 'Space' && !dino.jumping && !gameOver) {
-            dino.jumping = true;
-            dino.velocityY = -10;
-        }
-        if (e.code === 'Space' && gameOver) {
-            restartGame();
-        }
-    });
-
-    function restartGame() {
-        dino.y = 440;
-        obstacles = [];
-        frame = 0;
-        gameOver = false;
-        update();
-    }
-
-    update();
-</script>
-
-        
-        
-            <button class="reset-button" id="resetButton">Reset</button>
-            
-            
+        <canvas id="gameCanvas" width="284" height="250"></canvas>
+        <div class="game-over" id="gameOverScreen">
+            <img src="obrazky/dino_game_over.png" alt="Game Over">
+            <p>Score: <span id="scoreDisplay">0</span></p>
+            <button class="reset-button" onclick="resetGame()">Reset</button>
         </div>
-
-        <!-- Tlačítko Start -->
-        
-
-        <div class="power-button"></div>
-        <div class="volume-button-up"></div>
-        <div class="volume-button-down"></div>
+        <button class="start-button" id="startButton">Start</button>
         <a href="hlavni_telefon.html">
             <img src="obrazky/leva_sipka.png" alt="Back" class="back-arrow">
         </a>
     </div>
-    
+    <div class="power-button"></div>
+    <div class="volume-button-up"></div>
+    <div class="volume-button-down"></div>
+</div>
 
-    <script>
-        function updateTime() {
-            var currentTime = new Date();
-            var hours = currentTime.getHours();
-            var minutes = currentTime.getMinutes();
-            minutes = minutes < 10 ? '0' + minutes : minutes;
+<script>
+    function updateTime() {
+        const now = new Date();
+        document.getElementById('time').textContent = now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
+    }
+    setInterval(updateTime, 60000);
+    updateTime();
 
-            var timeString = hours + ':' + minutes;
-            document.getElementById('time').textContent = timeString;
-        }
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
 
-        setInterval(updateTime, 60000); // Aktualizuje čas každou minutu
-        updateTime(); // Spustí funkci při načtení stránky
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
-        const gameOverScreen = document.getElementById("gameOverScreen");
-        const scoreDisplay = document.getElementById("scoreDisplay");
-        const resetButton = document.getElementById("resetButton");
-        const birdSelection = document.getElementById("birdSelection");
-        const difficultyButtons = document.querySelectorAll(".difficulty-button");
-        const startButton = document.getElementById("startButton");
+    const backgroundImage = new Image();
+    backgroundImage.src = 'obrazky/dino_pozadi.png';
 
-        let birdImage = new Image();
-        birdImage.src = "obrazky/bird1.png";
+    const dinoImage = new Image();
+    dinoImage.src = 'obrazky/dino.png';
 
-        let birdY = 250;
-        let birdVelocity = 0;
-        const gravity = 0.06;
-        const jump = -3;
-        const birdX = 50;
-        const birdWidth = 30;
-        const birdHeight = 30;
-        const pipeWidth = 50;
-        let gapHeight = 200;
-        let pipes = [];
-        let score = 0;
-        let gameOver = false;
-        let gameStarted = false;
-        const pipeSpeed = 1;
+    const cactusImage = new Image();
+    cactusImage.src = 'obrazky/cactus.png';
 
-        function generatePipe() {
-            const pipeY = Math.random() * (canvas.height - gapHeight - 200) + 100;
-            pipes.push({ x: canvas.width, y: pipeY });
-        }
+    const groundOffset = 30;
+    let backgroundX = 0;
+    const backgroundSpeed = 1;
 
-        function gameLoop() {
-            if (!gameStarted || gameOver) return;
+    let dino = { x: 50, y: canvas.height - groundOffset - 40, width: 40, height: 40, velocityY: 0, gravity: 0.08, jumpStrength: -4, jumping: false };
+    let obstacles = [];
+    let frame = 0, score = 0;
+    let gameOver = false, gameStarted = false;
 
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+    function drawBackground() {
+        const groundY = canvas.height - groundOffset;
+        ctx.drawImage(backgroundImage, backgroundX, groundY, canvas.width, 30);
+        ctx.drawImage(backgroundImage, backgroundX + canvas.width, groundY, canvas.width, 30);
+        backgroundX -= backgroundSpeed;
+        if (backgroundX <= -canvas.width) backgroundX = 0;
+    }
 
-            birdVelocity += gravity;
-            birdY += birdVelocity;
+    function drawDino() {
+        ctx.drawImage(dinoImage, dino.x, dino.y, dino.width, dino.height);
+    }
 
-            ctx.drawImage(birdImage, birdX - birdWidth / 2, birdY - birdHeight / 2, birdWidth, birdHeight);
+    function generateObstacle() {
+        const groundY = canvas.height - groundOffset - 40;
+        const minGap = 150, maxGap = 350;
+        const gap = Math.floor(Math.random() * (maxGap - minGap + 1)) + minGap;
+        let lastX = obstacles.length > 0 ? obstacles[obstacles.length - 1].x : canvas.width;
+        obstacles.push({ x: lastX + gap, y: groundY, width: 20, height: 40, passed: false });
+    }
 
-            if (birdY > canvas.height || birdY < 0) {
+    function drawObstacles() {
+        obstacles.forEach(obs => {
+            obs.x -= backgroundSpeed;
+            ctx.drawImage(cactusImage, obs.x, obs.y, obs.width, obs.height);
+            if (dino.x < obs.x + obs.width && dino.x + dino.width > obs.x && dino.y < obs.y + obs.height && dino.y + dino.height > obs.y) {
                 endGame();
             }
-
-            pipes.forEach(pipe => {
-                ctx.fillStyle = "green";
-                ctx.fillRect(pipe.x, 0, pipeWidth, pipe.y);
-                ctx.fillRect(pipe.x, pipe.y + gapHeight, pipeWidth, canvas.height - pipe.y - gapHeight);
-                pipe.x -= pipeSpeed;
-
-                if (
-                    birdX + birdWidth / 2 > pipe.x &&
-                    birdX - birdWidth / 2 < pipe.x + pipeWidth &&
-                    (birdY - birdHeight / 2 < pipe.y || birdY + birdHeight / 2 > pipe.y + gapHeight)
-                ) {
-                    endGame();
-                }
-
-                if (pipe.x + pipeWidth < 0) {
-                    pipes.shift();
-                    score++;
-                }
-            });
-
-            if (pipes.length === 0 || pipes[pipes.length - 1].x < canvas.width - 270) {
-                generatePipe();
-            }
-
-            requestAnimationFrame(gameLoop);
-        }
-
-        function endGame() {
-            gameOver = true;
-            gameOverScreen.style.display = "block";
-            scoreDisplay.textContent = `Score: ${score}`;
-        }
-
-        function resetGame() {
-            birdY = 250;
-            birdVelocity = 0;
-            pipes = [];
-            score = 0;
-            gameOver = false;
-            gameStarted = true; // Ponechá hru v zapnutém stavu pro další hru
-            gameOverScreen.style.display = "none";
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            gameLoop(); // Restartuje herní smyčku
-        }
-
-        startButton.addEventListener("click", () => {
-            gameStarted = true;
-            gameLoop();
-            startButton.style.display = "none"; // Skryje tlačítko Start trvale
-        });
-
-        document.addEventListener("click", () => {
-            if (gameStarted && !gameOver) birdVelocity = jump;
-        });
-
-        document.addEventListener("keydown", (e) => {
-            if (e.code === "Space" && !gameOver) {
-                if (!gameStarted) {
-                    gameStarted = true;
-                    gameLoop();
-                }
-                birdVelocity = jump;
+            if (obs.x + obs.width < dino.x && !obs.passed) {
+                obs.passed = true;
+                score++;
             }
         });
+    }
 
-        birdSelection.addEventListener("click", (e) => {
-            if (e.target.classList.contains("bird-option")) {
-                document.querySelectorAll(".bird-option").forEach(img => img.classList.remove("selected"));
-                e.target.classList.add("selected");
-                birdImage.src = e.target.getAttribute("data-bird");
-            }
-        });
+    function updateGame() {
+        if (gameOver) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawBackground(); drawDino(); drawObstacles();
+        if (dino.jumping) { dino.velocityY += dino.gravity; dino.y += dino.velocityY; if (dino.y >= canvas.height - groundOffset - 40) { dino.y = canvas.height - groundOffset - 40; dino.jumping = false; } }
+        if (obstacles.length === 0 || obstacles[obstacles.length - 1].x < canvas.width - 50) generateObstacle();
+        requestAnimationFrame(updateGame);
+    }
 
-        difficultyButtons.forEach(button => {
-            button.addEventListener("click", (e) => {
-                difficultyButtons.forEach(btn => btn.classList.remove("selected"));
-                e.target.classList.add("selected");
-                gapHeight = parseInt(e.target.getAttribute("data-gap"));
-            });
-        });
-
-        resetButton.addEventListener("click", resetGame);
-    </script>
+    document.addEventListener('keydown', e => { if (e.code === 'Space' && !gameOver && !dino.jumping) { dino.jumping = true; dino.velocityY = dino.jumpStrength; }});
+    function endGame() { gameOver = true; gameOverScreen.style.display = 'block'; scoreDisplay.textContent = score; }
+    function resetGame() { location.reload(); }
+    startButton.onclick = () => { startButton.style.display = 'none'; updateGame(); };
+</script>
 </body>
 </html>
