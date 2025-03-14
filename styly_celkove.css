@@ -51,15 +51,17 @@ body {
 }
 .status-bar {
     width: 100%;
-    position: relative;
+    position: absolute;
+    top: 0; /* Udrží ho nahoře */
+    left: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 0.4cm;
     padding: 3px 10px;
     color: #000000;
-  
 }
+
 .status-bar .right {
     display: flex;
     align-items: center;
@@ -207,9 +209,10 @@ body {
     padding: 0;
     background-image: url('obrazky/flappy-bird-backgrounds-flappy-bird.jpg'); background-size: cover;
     border-radius: 10px;
-    height: 570px;
+    height: 750px;
     width: 284px;
     border-radius: 5%;
+    
 }
 .game-over {
     display: none;
