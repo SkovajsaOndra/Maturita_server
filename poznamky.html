@@ -3,45 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Poznámky</title>
+    <link rel="stylesheet" href="styly_celkove.css">
     <style>
-        body {
-            background-image: url('obrazky/stul.jpg');
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        .phone {
-            width: 7.5cm;
-            height: 570px;
-            background-color: #fff;
-            border-radius: 32px;
-            border: 8px solid black;
-            position: relative;
-            overflow: hidden;
-        }
-        .notch {
-            width: 120px;
-            height: 30px;
-            background-color: black;
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 0 0 15px 15px;
-            z-index: 5;
-        }
-        .status-bar {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 5px 10px;
-            font-size: 12px;
-        }
+        
+        
+        
         .header {
             text-align: center;
             font-size: 1.5em;
@@ -130,7 +96,7 @@
     </style>
 </head>
 <body>
-<div class="phone">
+<div class="phonepoznamky">
     <div class="notch"></div>
     <div class="status-bar">
         <span id="time">11:09</span>
