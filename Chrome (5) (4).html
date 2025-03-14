@@ -160,7 +160,7 @@
     </div>
 
     <div class="status-bar">
-        &nbsp;&nbsp;&nbsp;11:09 
+        <span id="time">11:09</span>
         <div class="">
             <span>📶</span> <span>🛜</span> <span>🔋</span>&nbsp;&nbsp;&nbsp;&nbsp;
         </div>
@@ -183,23 +183,34 @@
     <span id="placeholderText" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #aaa; pointer-events: none;">Hledejte na Googlu</span>
 </div>
 <script>
-    const searchInput = document.getElementById('searchInput');
-    const placeholderText = document.getElementById('placeholderText');
+    function updateTime() {
+            var currentTime = new Date();
+            var hours = currentTime.getHours();
+            var minutes = currentTime.getMinutes();
+            minutes = minutes < 10 ? '0' + minutes : minutes;
 
-    searchInput.addEventListener('focus', () => {
-        placeholderText.style.display = 'none';
-    });
-
-    searchInput.addEventListener('blur', () => {
-        if (searchInput.value === '') {
-            placeholderText.style.display = 'block';
+            var timeString = hours + ':' + minutes;
+            document.getElementById('time').textContent = timeString;
         }
-    });
-</script>
+
+        setInterval(updateTime, 60000); // Aktualizuje čas každou minutu
+        updateTime(); // Spustí funkci při načtení stránky
+        function toggleScreen() {
+            const screen = document.getElementById('screen');
+            if (screen.style.display === 'none') {
+                screen.style.display = 'flex';
+            } else {
+                screen.style.display = 'none';
+            }
+        }
+        
+   
 
 
-</div>
-<script>
+
+
+
+
     const searchInput = document.getElementById('searchInput');
     const placeholderText = document.getElementById('placeholderText');
 
