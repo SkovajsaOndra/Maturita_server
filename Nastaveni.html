@@ -164,7 +164,7 @@
 
         <!-- Status Bar -->
         <div class="status-bar">
-            &nbsp;&nbsp;&nbsp;11:09 
+            <span id="time">11:09</span>
             <div>
                 <span>📶</span> <span>🛜</span> <span>🔋</span>&nbsp;&nbsp;&nbsp;&nbsp;
             </div>
@@ -230,6 +230,27 @@
                 element.classList.toggle("active");
             }
         }
+        function updateTime() {
+            var currentTime = new Date();
+            var hours = currentTime.getHours();
+            var minutes = currentTime.getMinutes();
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+
+            var timeString = hours + ':' + minutes;
+            document.getElementById('time').textContent = timeString;
+        }
+
+        setInterval(updateTime, 60000); // Aktualizuje čas každou minutu
+        updateTime(); // Spustí funkci při načtení stránky
+        function toggleScreen() {
+            const screen = document.getElementById('screen');
+            if (screen.style.display === 'none') {
+                screen.style.display = 'flex';
+            } else {
+                screen.style.display = 'none';
+            }
+        }
+        
     </script>
 </body>
 </html>
