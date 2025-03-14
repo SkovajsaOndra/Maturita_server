@@ -8,8 +8,43 @@ body {
     background-color: #d3d3d3;
     font-family: Arial, sans-serif;
 }
+.phonepoznamky {
+    width: 7.5cm;
+    height: 570px;
+    background-color: #fff;
+    border-radius: 32px;
+    border: 8px solid black;
+    position: relative;
+    overflow: hidden;
+}
+.phone {width: 7.5cm;
+    height: 15cm;
+    background-color: #333;
+    background-image: url('obrazky/pozadi_telefonu_2.png');
+    background-size: cover; 
+    background-position: center; 
+    border-radius: 30px;
+    padding: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+    color: #fff;
+    justify-content: space-between;
+    border: 8px solid black;
 
-.phone {
+}
+.phonenastaveni {
+    width: 7.5cm;
+    height: 15cm;
+    background-color: #fff;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 8px solid black;
+    position: relative;
+}
+.phonemain {
     width: 7.5cm;
     height: 15cm;
     background-color: #333;
@@ -71,10 +106,9 @@ body {
 .icon-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    width: 100%;
+    gap: 20px;
     justify-items: center;
-    margin-top: 20px;
+    margin-top: 72px; /* Zvýšení hodnoty je posune dolů */
 }
 .icon-container {
     display: flex;
@@ -309,4 +343,48 @@ body {
     50% {
         transform: translate(-50%, -50%) scale(1.1);
     }
+}
+.container {
+    position: relative;
+}
+.settings-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    font-size: 1.2em;
+    color: #333;
+    border-bottom: 1px solid #e0e0e0;
+}
+.toggle-switch {
+    position: relative;
+    width: 40px;
+    height: 20px;
+    background: #ddd;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.toggle-switch::before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: white;
+    border-radius: 50%;
+    top: 1px;
+    left: 1px;
+    transition: transform 0.2s;
+}
+.toggle-switch.active {
+    background-color: #4cd964;
+}
+.toggle-switch.active::before {
+    transform: translateX(20px);
+}
+.settings-option2 {
+    text-align: center;
+    font-size: 1.1em;
+    padding: 20px;
+    color: #666;
 }
