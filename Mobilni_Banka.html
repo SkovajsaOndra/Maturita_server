@@ -6,120 +6,14 @@
     <title>Mobilní Banka</title>
     <link rel="stylesheet" href="styly_celkove.css">
     <style>
-        body {
-            background-image: url('obrazky/stul.jpg');
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #d3d3d3;
-            font-family: Arial, sans-serif;
-        }
         
-        .phone {
-            width: 7.5cm;
-            height: 15cm;
-            background-color: black;
-            border-radius: 30px;
-            padding: 2px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            position: relative;
-            border: 8px solid black;
-            overflow: hidden;
-            background-color: white;
-        }
-        .notch {
-            width: 120px;
-            height: 30px;
-            background-color: black;
-            border-radius: 0 0 15px 15px;
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .status-bar {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 14px;
-            padding: 10px;
-            color: black;
-        }
-        .login-container {
-            text-align: center;
-            margin-top: 80px;
-        }
-        .login-container h1 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: black;
-        }
-        .login-container input {
-            width: 80%;
-            padding: 10px;
-            margin: 10px 0;
-            font-size: 1rem;
-            border-radius: 5px;
-            border: 1px solid black;
-            background-color: #f2f2f2;
-            color: black;
-            text-align: center;
-        }
-        .login-container button {
-            width: 85%;
-            padding: 15px;
-            font-size: 1.2rem;
-            background-color: #ff0040;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-        .bottom-icons {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            padding: 15px 0;
-            position: absolute;
-            bottom: 10px;
-            color: black;
-        }
-        .bottom-icons div {
-            text-align: center;
-        }
-        .power-button, .volume-button-up, .volume-button-down {
-            position: absolute;
-            background-color: black;
-            border-radius: 2px;
-        }
-        .power-button {
-            width: 8px;
-            height: 70px;
-            right: -4px;
-            top: 200px;
-        }
-        .volume-button-up {
-            width: 6px;
-            height: 40px;
-            left: -4px;
-            top: 170px;
-        }
-        .volume-button-down {
-            width: 6px;
-            height: 40px;
-            left: -2px;
-            top: 220px;
-        }
+        
+       
+        
     </style>
 </head>
 <body>
-    <div class="phone">
+    <div class="phonemobilnibanka">
         <div class="notch"></div>
         <div class="status-bar">
             <span id="time">11:09</span>
@@ -130,7 +24,7 @@
             <input type="password" placeholder="Heslo">
             <button>Přihlásit</button>
         </div>
-        <div class="bottom-icons">
+        <div class="bottom-icons-banka">
             <div>
                 <p>🗺️</p>
                 <span>Mapy</span>
@@ -147,6 +41,9 @@
         <div class="power-button"></div>
         <div class="volume-button-up"></div>
         <div class="volume-button-down"></div>
+        <a href="hlavni_telefon.html">
+            <img src="obrazky/leva_sipka.png" alt="Back" class="back-arrow">
+        </a>
     </div>
     <script>
 function updateTime() {
