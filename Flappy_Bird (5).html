@@ -71,8 +71,8 @@
             document.getElementById('time').textContent = timeString;
         }
 
-        setInterval(updateTime, 60000); // Aktualizuje čas každou minutu
-        updateTime(); // Spustí funkci při načtení stránky
+        setInterval(updateTime, 60000); 
+        updateTime(); 
         const canvas = document.getElementById("gameCanvas");
         const ctx = canvas.getContext("2d");
         const gameOverScreen = document.getElementById("gameOverScreen");
@@ -87,7 +87,7 @@
 
         let birdY = 250;
         let birdVelocity = 0;
-        const gravity = 0.06;
+        const gravity = 0.045;
         const jump = -3;
         const birdX = 50;
         const birdWidth = 30;
@@ -158,16 +158,16 @@
             pipes = [];
             score = 0;
             gameOver = false;
-            gameStarted = true; // Ponechá hru v zapnutém stavu pro další hru
+            gameStarted = true; 
             gameOverScreen.style.display = "none";
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            gameLoop(); // Restartuje herní smyčku
+            gameLoop(); 
         }
 
         startButton.addEventListener("click", () => {
             gameStarted = true;
             gameLoop();
-            startButton.style.display = "none"; // Skryje tlačítko Start trvale
+            startButton.style.display = "none"; 
         });
 
         document.addEventListener("click", () => {
