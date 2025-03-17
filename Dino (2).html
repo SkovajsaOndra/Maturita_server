@@ -5,47 +5,6 @@
     <title>Dino Game</title>
     <link rel="stylesheet" href="styly_celkove.css">
     <style>
-        body {
-            background-image: url('obrazky/stul.jpg');
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            position: relative;
-        }
-        .phone {
-            width: 7.5cm;
-            height: 570px;
-            background-color: #fff;
-            border-radius: 32px;
-            border: 8px solid black;
-            position: relative;
-            overflow: hidden;
-        }
-        .notch {
-            width: 120px;
-            height: 30px;
-            background-color: black;
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 0 0 15px 15px;
-            z-index: 5;
-        }
-        .status-bar {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 5px 10px;
-            font-size: 12px;
-        }
         canvas {
             display: block;
             width: 100%;
@@ -53,99 +12,30 @@
             position: absolute;
             top: 25%;
         }
-        .start-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 15px 35px;
-            font-size: 1.5rem;
-            color: white;
-            background-color: #007bff;
-            border: none;
-            border-radius: 16px;
-            cursor: pointer;
-            z-index: 10;
-        }
-        .back-arrow {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            width: 30px;
-            cursor: pointer;
-            z-index: 5;
-        }
-        .game-over {
-            position: absolute;
-            top: 35%;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            display: none;
-            z-index: 10;
-        }
-        .game-over img {
-            width: 227px;
-            height: auto;
-            margin-bottom: 10px;
-        }
-        .reset-button {
-            padding: 10px 20px;
-            font-size: 1rem;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .power-button, .volume-button-up, .volume-button-down {
-            position: absolute;
-            background-color: black;
-            z-index: 15;
-            border-radius: 2px;
-        }
-        .power-button {
-            width: 8px;
-            height: 70px;
-            right: -4px;
-            top: 200px;
-        }
-        .volume-button-up {
-            width: 6px;
-            height: 40px;
-            left: -4px;
-            top: 170px;
-        }
-        .volume-button-down {
-            width: 6px;
-            height: 40px;
-            left: -4px;
-            top: 220px;
-        }
-    </style>
+        </style>
 </head>
 <body>
 <div class="container">
-    <div class="phone">
+    <div class="phonedino">
         <div class="notch"></div>
         <div class="status-bar">
             <span id="time">11:09</span>
             <span>📶 🛜 🔋</span>
         </div>
         <canvas id="gameCanvas" width="284" height="250"></canvas>
-        <div class="game-over" id="gameOverScreen">
+        <div class="game-over-dino" id="gameOverScreen">
             <img src="obrazky/dino_game_over.png" alt="Game Over">
             <p>Score: <span id="scoreDisplay">0</span></p>
-            <button class="reset-button" onclick="resetGame()">Reset</button>
+            <button class="reset-button-dino" onclick="resetGame()">Reset</button>
         </div>
-        <button class="start-button" id="startButton">Start</button>
+        <button class="start-button-dino" id="startButton">Start</button>
         <a href="hlavni_telefon.html">
             <img src="obrazky/leva_sipka.png" alt="Back" class="back-arrow">
         </a>
     </div>
-    <div class="power-button"></div>
-    <div class="volume-button-up"></div>
-    <div class="volume-button-down"></div>
+    <div class="power-button-dino"></div>
+    <div class="volume-button-up-dino"></div>
+    <div class="volume-button-down-dino"></div>
 </div>
 
 <script>
@@ -175,12 +65,12 @@
     let backgroundX = 0;
     
    
-    const gameSpeed = 2.5; 
+    const gameSpeed = 1.6; 
     
    
     const backgroundSpeed = gameSpeed;
 
-    let dino = { x: 50, y: canvas.height - groundOffset - 40, width: 40, height: 40, velocityY: 0, gravity: 0.5, jumpStrength: -12, jumping: false };
+    let dino = { x: 50, y: canvas.height - groundOffset - 40, width: 40, height: 40, velocityY: 0, gravity: 0.2, jumpStrength: -10, jumping: false };
     let obstacles = [];
     let frame = 0, score = 0;
     let gameOver = false, gameStarted = false;
@@ -280,7 +170,7 @@
         gameOver = false;
         gameStarted = false;
         score = 0;
-        dino = { x: 50, y: canvas.height - groundOffset - 40, width: 40, height: 40, velocityY: 0, gravity: 0.5, jumpStrength: -10, jumping: false };
+        dino = { x: 50, y: canvas.height - groundOffset - 40, width: 40, height: 40, velocityY: 0, gravity: 0.2, jumpStrength: -10, jumping: false };
         obstacles = [];
         gameOverScreen.style.display = 'none';
         startButton.style.display = 'block';
