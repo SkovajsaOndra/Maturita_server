@@ -8,14 +8,43 @@ body {
     background-color: #d3d3d3;
     font-family: Arial, sans-serif;
 }
-.phonepong {
-    width: 284px;
+.phonedino {
+    width: 7.5cm;
     height: 570px;
-    background-color: transparent;
+    background-color: #fff;
     border-radius: 32px;
     border: 8px solid black;
     position: relative;
     overflow: hidden;
+}
+.phonepong {
+    width: 7.5cm;
+    height: 15cm;
+    background-color: #ffffff;
+    
+    background-size: cover; 
+    background-position: center; 
+    border-radius: 30px;
+    padding: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+    color: #fff;
+    justify-content: space-between;
+    border: 8px solid black;
+
+}
+.phonefotky {
+    width: 7.5cm;
+    height: 570px;
+    background-color: #fff;
+    border-radius: 32px;
+    border: 8px solid black;
+    position: relative;
+   
+   
 }
 .phonepoznamky {
     width: 7.5cm;
@@ -24,6 +53,7 @@ body {
     border-radius: 32px;
     border: 8px solid black;
     position: relative;
+   
    
 }
 .phone {width: 7.5cm;
@@ -56,10 +86,11 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     position: relative;
     border: 8px solid black;
-    
+   
     background-color: white;
 }
-.phonekalkulacka {width: 7.5cm;
+.phonekalkulacka {
+    width: 7.5cm;
     height: 15cm;
     background-color: #ffffff;
     
@@ -533,4 +564,219 @@ body {
 }
 .bottom-icons-banka div {
     text-align: center;
+}
+.skin-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 5px;
+}
+.skin-buttons img {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+.skin-buttons img.selected {
+    border-color: yellow;
+}
+.difficulty-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+.difficulty-buttons button {
+    padding: 8px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: 2px solid #0056b3;
+    border-radius: 5px;
+}
+.difficulty-buttons button.selected {
+    background-color: #ffcc00;
+    border-color: #ff9900;
+    color: black;
+    font-weight: bold;
+}
+.reset-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+.game-over-screen {
+    display: none;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: none;
+    z-index: 15;
+    
+}
+.game-over-screen img {
+    width: 70px;
+    height: auto;
+}
+.game-over-screen p {
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: none;
+}
+
+.start-button-dino {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 35px;
+    font-size: 1.5rem;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.game-over-dino {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    display: none;
+    z-index: 10;
+}
+.game-over-dino img {
+    width: 227px;
+    height: auto;
+    margin-bottom: 10px;
+}
+.reset-button-dino {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.power-button-dino {
+    width: 8px;
+    height: 70px;
+    background-color: #000000;
+    position: absolute;
+    right: -4px;
+    top: 29%;
+    transform: translateY(-50%);
+    border-radius: 2px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.volume-button-up-dino, .volume-button-down-dino {
+    width: 6px;
+    height: 40px;
+    background-color: #000000;
+    position: absolute;
+    left: -4px;
+    transform: translateY(-50%);
+    border-radius: 2px;
+}
+.volume-button-up-dino {
+    top: 27%;
+}
+.volume-button-down-dino {
+    top: 35%;
+}
+.power-button-pong {
+    width: 8px;
+    height: 70px;
+    background-color: #000000;
+    position: absolute;
+    right: 9px;
+    top: 640%;
+    transform: translateY(-50%);
+    border-radius: 2px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+.volume-button-up-pong, .volume-button-down-pong {
+    width: 6px;
+    height: 40px;
+    background-color: #000000;
+    position: absolute;
+    left: -11px;
+    transform: translateY(-50%);
+    border-radius: 2px;
+}
+.volume-button-up-pong {
+    top: 594%;
+}
+.volume-button-down-pong {
+    top:770%;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 120px;
+    width: 100%;
+    height: calc(100% - 120px); 
+    
+    justify-content: center;
+    align-items: center;
+}
+
+
+.modal img {
+    max-width: 100%;
+    max-height: auto; 
+    border-radius: 10px;
+    transform: scale(1.88);
+}
+
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 10px;
+    justify-items: center;
+}
+.gallery div {
+    background: white;
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
 }
