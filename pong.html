@@ -5,126 +5,32 @@
     <title>Pong pro jednoho hráče</title>
     <link rel="stylesheet" href="styly_celkove.css">
     <style>
-         
-       
-        
-        .notch {
-            width: 120px;
-            height: 30px;
-            background-color: black;
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 0 0 15px 15px;
-            z-index: 7;
-        }
-        .status-bar {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            height: 30px;
-            background-color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 5px 10px;
-            font-size: 12px;
-            color: black;
-            z-index: 6;
-        }
         canvas {
             display: block;
             width: 100%;
-            height: calc(100% - 30px);
+            height: calc(96% - 30px);
             position: absolute;
             top: 30px;
         }
-        .game-over-screen {
-            display: none;
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            background: none;
-            z-index: 15;
-        }
-        .game-over-screen img {
-            width: 150px;
-        }
-        .game-over-screen p {
-            color: black;
-            font-size: 18px;
-            font-weight: bold;
-            text-shadow: none;
-        }
-        .skin-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 5px;
-            margin-top: 5px;
-        }
-        .skin-buttons img {
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            border: 2px solid transparent;
-        }
-        .skin-buttons img.selected {
-            border-color: yellow;
-        }
-        .difficulty-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 5px;
-            margin-top: 10px;
-        }
-        .difficulty-buttons button {
-            padding: 8px 20px;
-            font-size: 14px;
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            border: 2px solid #0056b3;
-            border-radius: 5px;
-        }
-        .difficulty-buttons button.selected {
-            background-color: #ffcc00;
-            border-color: #ff9900;
-            color: black;
-            font-weight: bold;
-        }
-        .reset-button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 14px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 5px;
-        }
-        .back-arrow {
-            position: absolute;
-            bottom: 5px;
-            left: 5px;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            z-index: 20;
-        }
-
-    </style>
+        </style>
 </head>
 <body>
-<div class="container">
     <div class="phonepong">
+        <!-- Notch with Sensor -->
+        <div class="notch">
+            <div class="sensor"></div>
+        </div>
+
+        <!-- Status Bar -->
         <div class="status-bar">
             <span id="time">11:09</span>
-            📶🛜🔋&nbsp;&nbsp;&nbsp;&nbsp;
+            <div>
+                <span>📶</span> <span>🛜</span> <span>🔋</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+             <div class="power-button-pong"></div>
+             <div class="volume-button-up-pong"></div>
+             <div class="volume-button-down-pong"></div>
         </div>
-        <div class="notch"></div>
         <canvas id="gameCanvas" width="284" height="540"></canvas>
         <img src="obrazky/leva_sipka.png" class="back-arrow" onclick="goBack()">
         <div class="game-over-screen" id="gameOverScreen">
