@@ -3,9 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Knihovna</title>
+    <title>Galerie</title>
     <link rel="stylesheet" href="styly_celkove.css">
+    <style>
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            padding: 10px;
+            justify-items: center;
+        }
+        .gallery div {
+            background: white;
+            padding: 5px;
+            border-radius: 10px;
+           
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* Modalní okno */
+        .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 120px; /* Posun pod červený pruh */
+    width: 100%;
+    height: calc(100% - 120px); /* Aby modal nekryl červený pruh */
    
+    justify-content: center;
+    align-items: center;
+}
+
+/* Zvětšený obrázek */
+.modal img {
+    max-width: 90%;
+    max-height: 80vh; /* Omezíme výšku, aby se vešel pod červený pruh */
+    border-radius: 10px;
+}
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <div class="phonefotky">
@@ -21,8 +76,8 @@
         <div class="power-button"></div>
         <div class="volume-button-up"></div>
         <div class="volume-button-down"></div>
-        <div class="header" style="background: #b8a9a5; padding: 20px;">
-            <h1>Knihovna</h1>
+        <div class="header" style="background: #c29584; padding: 20px;">
+            <h1>Galerie</h1>
         </div>
         <div class="gallery">
             <div><img src="obrazky/spongebob_1.png" alt="Knihovna obrázek 1"></div>
