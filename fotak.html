@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telefon Fotoaparát</title>
+    <link rel="stylesheet" href="styly_celkove.css">
+</head>
+<body>
+    <div class="phonemain">
+        <div class="top-bar">
+            <p id="time">12:02</p>
+            <div class="icons">📶 🛜 🔋</div>
+        </div>
+        <div class="notch">
+            <div class="sensor"></div>
+        </div>
+        <div class="camera-view">
+            <video id="camera-feed" autoplay playsinline></video>
+            <p id="camera-error" style="display: none; color: red; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">Chyba: Kamera nebyla nalezena.</p>
+            <select id="camera-select" style="position: absolute; top: 10px; left: 10px;"></select>
+        </div>
+        <div class="bottom-bar">
+            <div class="shutter-button"></div>
+        </div>
+        <div class="power-button"></div>
+        <div class="volume-button-up"></div>
+        <div class="volume-button-down"></div>
+    </div>
+
+    <script>
+        function updateTime() {
+            var currentTime = new Date();
+            var hours = currentTime.getHours();
+            var minutes = currentTime.getMinutes();
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            var timeString = hours + ':' + minutes;
+            document.getElementById('time').textContent = timeString;
+        }
+        setInterval(updateTime, 60000);
+        updateTime();
+
+        async function listCameras() {
+            try {
+                const devices = await navigator.mediaDevices.enumerateDevices();
+                const cameras = devices.filter(device => device.kind === 'videoinput');
+                const select = document.getElementById('camera-select');
+                select.innerHTML = '';
+                cameras.forEach((camera, index) => {
+                    const option = document.createElement('option');
+                    option.value = camera.deviceId;
+                    option.textContent = camera.label || `Kamera ${index + 1}`;
+                    select.appendChild(option);
+                });
+                if (cameras.length > 0) {
+                    startCamera(cameras[0].deviceId);
+                }
+                select.addEventListener('change', (event) => startCamera(event.target.value));
+            } catch (error) {
+                console.error('Chyba při načítání kamer:', error);
+            }
+        }
+
+        async function startCamera(deviceId) {
+            const videoElement = document.getElementById('camera-feed');
+            const errorText = document.getElementById('camera-error');
+            console.log("Spouštím kameru s ID:", deviceId);
+            try {
+                const constraints = {
+                    video: {
+                        deviceId: deviceId ? { exact: deviceId } : undefined,
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 }
+                    }
+                };
+                
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                videoElement.srcObject = stream;
+                videoElement.style.display = 'block';
+                errorText.style.display = 'none';
+                console.log("Kamera úspěšně spuštěna.");
+            } catch (error) {
+                console.error('Chyba při přístupu ke kameře:', error);
+                errorText.style.display = 'block';
+                errorText.innerText = "Kamera nelze spustit. Zkontrolujte oprávnění.";
+            }
+        }
+        
+        listCameras();
+    </script>
+
+    <style>
+        .top-bar {
+            height: 40px;
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 14px;
+            width: 90%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .camera-view {
+            flex: 1;
+            background-color: black;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        #camera-feed {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            display: none;
+        }
+        .bottom-bar {
+            height: 80px;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+        .shutter-button {
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-radius: 50%;
+            border: 4px solid gray;
+        }
+    </style>
+</body>
+</html>
