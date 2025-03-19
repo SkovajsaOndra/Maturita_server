@@ -138,6 +138,17 @@ body {
     justify-content: space-between;
     border: 8px solid black;
 }
+
+.phonechrome {
+    width: 7.5cm;
+    height: 15cm;
+    background-color: #fff;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 8px solid black;
+    position: relative;
+    padding: 2px;
+}
 .phonefotak {
     width: 7.5cm;
     height: 15cm;
@@ -156,15 +167,19 @@ body {
     justify-content: space-between;
     border: 8px solid black;
 }
-.phonechrome {
-    width: 7.5cm;
-    height: 15cm;
-    background-color: #fff;
-    border-radius: 30px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border: 8px solid black;
-    position: relative;
-    padding: 2px;
+.top-bar {
+    height: 40px;
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    font-size: 14px;
+    width: 90%;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 .notch {
     width: 120px;
@@ -723,15 +738,15 @@ body {
     height: 40px;
     background-color: #000000;
     position: absolute;
-    left: -4px;
+    left: -3px;
     transform: translateY(-50%);
     border-radius: 2px;
 }
 .volume-button-up-dino {
-    top: 27%;
+    top: 162px;
 }
 .volume-button-down-dino {
-    top: 35%;
+    top: 207px;
 }
 .power-button-pong {
     width: 8px;
@@ -755,10 +770,10 @@ body {
     border-radius: 2px;
 }
 .volume-button-up-pong {
-    top: 594%;
+    top: 139px;
 }
 .volume-button-down-pong {
-    top:770%;
+    top:185px;
 }
 .modal {
     display: none;
@@ -814,21 +829,7 @@ body {
     border-radius: 8px;
     cursor: pointer;
 }
-.top-bar {
-    height: 40px;
-    background-color: black;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 15px;
-    font-size: 14px;
-    width: 90%;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-#camera-container {
+.camera-container {
     position: absolute;
     width: 100%;
     height: 79%;
@@ -836,11 +837,6 @@ body {
     left: 0px;
     overflow: hidden;
    
-}
-#camera-feed {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 .bottom-bar {
     height: 80px;
@@ -859,4 +855,23 @@ body {
     background-color: white;
     border-radius: 50%;
     border: 4px solid gray;
+}
+.camera-container {
+    position: absolute;
+    width: 100%;
+    height: 79%;
+    top: 7%;
+    left: 0px;
+    overflow: hidden;
+   
+}
+.camera-feed {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.galeriebar{
+    background: #c29584; 
+    padding: 20px; 
+    margin-top: 37px;
 }
