@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telefon</title>
+    <link rel="stylesheet" href="styly_celkove.css">
+</head>
+<body>
+    <div class="phonemain">
+        <div class="screen" id="screen"></div> 
+        <div class="notch">
+            <div class="sensor"></div>
+        </div>
+        
+        <div class="status-bar">
+            <p id="time">11:09 </p>
+            📶 🛜 🔋&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+        
+        <a href="hlavni_telefon.html">
+            <img src="obrazky/leva_sipka_bila.png" alt="Back" class="back-arrow">
+        </a>
+        
+        <div class="power-button"></div> <!-- Tlačítko zapnutí -->
+        <div class="volume-button-up"></div>
+        <div class="volume-button-down"></div>
+    </div>
+    
+    <script>
+         function updateTime() {
+            var currentTime = new Date();
+            var hours = currentTime.getHours();
+            var minutes = currentTime.getMinutes();
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+
+            var timeString = hours + ':' + minutes;
+            document.getElementById('time').textContent = timeString;
+        }
+
+        setInterval(updateTime, 60000); // Aktualizuje čas každou minutu
+        updateTime(); // Spustí funkci při načtení stránky
+    </script>
+</body>
+</html>
