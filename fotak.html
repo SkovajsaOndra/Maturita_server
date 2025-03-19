@@ -16,8 +16,8 @@
         <div class="notch">
             <div class="sensor"></div>
         </div>
-        <div id="camera-container">
-            <video id="camera-feed" autoplay playsinline></video>
+        <div class="camera-container">
+            <video class="camera-feed" autoplay playsinline></video>
             <p id="camera-error" style="display: none; color: red;">Chyba: Kamera nebyla nalezena.</p>
         </div>
         <div class="bottom-bar">
@@ -44,8 +44,9 @@
         updateTime();
 
         async function startCamera() {
-            const videoElement = document.getElementById('camera-feed');
-            const errorText = document.getElementById('camera-error');
+            const videoElement = document.querySelector('.camera-feed');
+const errorText = document.querySelector('.camera-error');
+
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: { width: 1280, height: 720 } });
                 videoElement.srcObject = stream;
