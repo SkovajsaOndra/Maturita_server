@@ -6,59 +6,150 @@
     <title>Galerie</title>
     <link rel="stylesheet" href="styly_celkove.css">
     <style>
+        .gallery-container {
+            padding: 0px;
+            margin-top:80px;
+            overflow: hidden;
+        }
+        
+        .gallery-header {
+            background: linear-gradient(45deg, #ff7e5f, #feb47b);
+            color: white;
+            padding: 15px;
+            margin: -15px -15px 20px -15px;
+            border-radius: 15px 15px 0 0;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            width:280px;
+            
+        }
+        
         .gallery {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            padding: 10px;
+            gap: 8px;
+            padding: 0;
             justify-items: center;
+            
         }
-        .gallery div {
+        
+        .gallery-item {
             background: white;
-            padding: 5px;
-            border-radius: 10px;
-           
+            padding: 3px;
+            border-radius: 12px;
             width: 80px;
             height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            overflow:hidden;
         }
-        .gallery img {
+        
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
+            transition: filter 0.3s;
+        }
+        
+        .gallery-item img:hover {
+            filter: brightness(1.1);
         }
 
-        /* Modalní okno */
+        /* Modal styling */
         .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 120px; /* Posun pod červený pruh */
-    width: 100%;
-    height: calc(100% - 120px); /* Aby modal nekryl červený pruh */
-   
-    justify-content: center;
-    align-items: center;
-}
-
-/* Zvětšený obrázek */
-.modal img {
-    max-width: 90%;
-    max-height: 80vh; /* Omezíme výšku, aby se vešel pod červený pruh */
-    border-radius: 10px;
-}
-
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .modal-content {
+            position: relative;
+            margin: auto;
+            max-width: 90%;
+            max-height: 80%;
+            animation: fadeIn 0.3s;
+            
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        
         .modal-close {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 30px;
+            top: -30px;
+            right: 5px;
+            font-size: 28px;
             color: white;
             cursor: pointer;
+            background: rgba(0,0,0,0.5);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.2s;
+        }
+        
+        .modal-close:hover {
+            background: rgba(255,0,0,0.7);
+        }
+        
+        .back-arrow {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            padding: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        
+        .back-arrow:hover {
+            transform: scale(1.1);
+            background-color: #ffffff;
+        }
+        
+        /* Status bar styling */
+        .status-bar {
+            background-color: #fff;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+           width: 267px;
+           border-radius: 25px;
         }
     </style>
 </head>
@@ -76,29 +167,35 @@
         <div class="power-button"></div>
         <div class="volume-button-up"></div>
         <div class="volume-button-down"></div>
-        <div class="galeriebar">
-            <h1>Galerie</h1>
+        
+        <div class="gallery-container">
+            <div class="gallery-header">
+                Galerie
+            </div>
+            <div class="gallery">
+                <div class="gallery-item"><img src="obrazky/spongebob_1.png" alt="Knihovna obrázek 1"></div>
+                <div class="gallery-item"><img src="obrazky/spongebob_2.png" alt="Knihovna obrázek 2"></div>
+                <div class="gallery-item"><img src="obrazky/spongebob_3.png" alt="Knihovna obrázek 3"></div>
+                <div class="gallery-item"><img src="obrazky/patrick_1.png" alt="Knihovna obrázek 4"></div>
+                <div class="gallery-item"><img src="obrazky/patrick_2.jpg" alt="Knihovna obrázek 5"></div>
+                <div class="gallery-item"><img src="obrazky/patrick_3.png" alt="Knihovna obrázek 6"></div>
+                <div class="gallery-item"><img src="obrazky/spongebob_4.png" alt="Knihovna obrázek 7"></div>
+                <div class="gallery-item"><img src="obrazky/spongebob_5.png" alt="Knihovna obrázek 8"></div>
+                <div class="gallery-item"><img src="obrazky/spongebob_6.png" alt="Knihovna obrázek 9"></div>
+            </div>
         </div>
-        <div class="gallery">
-            <div><img src="obrazky/spongebob_1.png" alt="Knihovna obrázek 1"></div>
-            <div><img src="obrazky/spongebob_2.png" alt="Knihovna obrázek 2"></div>
-            <div><img src="obrazky/spongebob_3.png" alt="Knihovna obrázek 3"></div>
-            <div><img src="obrazky/patrick_1.png" alt="Knihovna obrázek 4"></div>
-            <div><img src="obrazky/patrick_2.jpg" alt="Knihovna obrázek 5"></div>
-            <div><img src="obrazky/patrick_3.png" alt="Knihovna obrázek 6"></div>
-            <div><img src="obrazky/spongebob_4.png" alt="Knihovna obrázek 7"></div>
-            <div><img src="obrazky/spongebob_5.png" alt="Knihovna obrázek 8"></div>
-            <div><img src="obrazky/spongebob_6.png" alt="Knihovna obrázek 9"></div>
-        </div>
+        
         <a href="hlavni_telefon.html">
             <img src="obrazky/leva_sipka.png" alt="Back" class="back-arrow">
         </a>
     </div>
 
-    <!-- Modalní okno -->
+    <!-- Modal window -->
     <div id="imageModal" class="modal">
-        <span class="modal-close">&times;</span>
-        <img id="modalImage" src="" alt="Zvětšený obrázek">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <img id="modalImage" src="" alt="Zvětšený obrázek">
+        </div>
     </div>
 
     <script>
@@ -113,7 +210,7 @@
         setInterval(updateTime, 60000);
         updateTime();
 
-        // Funkce pro zvětšení obrázku
+        // Image enlargement function
         document.addEventListener("DOMContentLoaded", function () {
             var images = document.querySelectorAll(".gallery img");
             var modal = document.getElementById("imageModal");
@@ -124,16 +221,27 @@
                 img.addEventListener("click", function () {
                     modalImage.src = this.src;
                     modal.style.display = "flex";
+                    document.body.style.overflow = "hidden"; // Prevent scrolling when modal is open
                 });
             });
 
             closeModal.addEventListener("click", function () {
                 modal.style.display = "none";
+                document.body.style.overflow = "auto"; // Enable scrolling again
             });
 
             modal.addEventListener("click", function (e) {
                 if (e.target === modal) {
                     modal.style.display = "none";
+                    document.body.style.overflow = "auto"; // Enable scrolling again
+                }
+            });
+            
+            // Add keyboard support for closing modal with Escape key
+            document.addEventListener("keydown", function(e) {
+                if (e.key === "Escape" && modal.style.display === "flex") {
+                    modal.style.display = "none";
+                    document.body.style.overflow = "auto";
                 }
             });
         });
