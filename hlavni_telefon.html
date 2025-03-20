@@ -10,7 +10,7 @@
 </head>
 <body>
     
-    <div class="phonemain">
+    <div class="phonemain" id="phonemain">
         <div class="screen" id="screen"></div> 
         <div class="notch">
             <div class="sensor"></div>
@@ -103,8 +103,8 @@
                 <img src="obrazky/telefon_2.png" alt="Telefon">
             </div>
             <div class="icon">
-                <a href="zpravy.html">
-                <img src="obrazky/zpravy_2.png" alt="Uzivatel">
+                <a href="volani.html">
+                <img src="obrazky/telefon_2.png" alt="Uzivatel">
                 </a>
             </div>
             <div class="icon">
@@ -114,7 +114,7 @@
             </div>
         </div>
         
-        <div class="power-button"></div> <!-- Tlačítko zapnutí -->
+        <div class="power-button" id="power-button" onclick="pwr_btn()"></div> <!-- Tlačítko zapnutí -->
         <div class="volume-button-up"></div>
         <div class="volume-button-down"></div>
     </div>
@@ -141,8 +141,9 @@
             }
         }
         
-        // Na začátku zobrazíme černou obrazovku
-         document.getElementById('screen').style.display = 'none';
+      
+         
+
     </script>
 </body>
 </html>
