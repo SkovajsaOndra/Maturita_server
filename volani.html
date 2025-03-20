@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakty</title>
+    <link rel="stylesheet" href="styly_celkove.css">
+    <style>
+        .add-contact {
+            position: absolute;
+            top: 50px;
+            right: 10px;
+            font-size: 2em;
+            color: white;
+            cursor: pointer;
+            user-select: none;
+        }
+        .contact-input-container {
+            display: none;
+            position: absolute;
+            top: 90px;
+            right: 10px;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .contact-input-container input {
+            padding: 5px;
+            margin-right: 5px;
+        }
+        .contact-list {
+            height: 60vh;
+            overflow-y: auto;
+            color: black;
+            border-radius: 15px;
+            padding: 10px;
+            width: 90%;
+            margin-top: 60%; /* Posun prvního kontaktu na 25 % výšky */
+            margin-bottom: 20%;
+            scrollbar-width: none;
+        }
+        .contact-list::-webkit-scrollbar {
+            display: none;
+        }
+        .contact {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #444;
+            font-size: 1.2em;
+        }
+        .title {
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 5px;
+            color: black;
+        }
+        .call-screen {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8cm;
+            height: 15.5cm;
+            background: black;
+            color: white;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            border-radius: 30px;
+            background-image: url('IMG_2085.png');
+            background-size: cover;
+            background-position: center;
+        }
+        .call-info {
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: -40px;
+        }
+        #callName {
+            font-size: 2.5em;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .end-call {
+            margin-top: 40px;
+        }
+        .end-call img {
+            width: 60px;
+            cursor: pointer;
+        }
+        .kontakty{
+            transform: translate(-70%, 180%);
+        }
+    </style>
+</head>
+<body>
+    <audio id="callSound" src="zvuky/volani.mp3"></audio>
+    <div class="phonevolani">
+        <div class="notch">
+            <div class="sensor"></div>
+        </div>
+        <div class="status-bar">
+            <p id="time">11:09</p>
+        📶 🛜 🔋&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+        <div class="power-button"></div>
+        <div class="volume-button-up"></div>
+        <div class="volume-button-down"></div>
+        <div class="add-contact" onclick="toggleContactInput()"><img src="obrazky/plusko_bile.png" alt="" height="40px"   width="auto" ></div>
+        <div class="contact-input-container" id="contactInputContainer">
+            <input type="text" id="contactName" placeholder="Jméno kontaktu">
+            <button onclick="addContact()">Přidat</button>
+        </div>
+        <p class="kontakty title">Kontakty</p>
+       
+        <div class="contact-list" id="contactList">
+            <div class="contact">Michal <span class="call-icon" onclick="startCall('Michal')">📞</span></div>
+            <div class="contact">Tonda <span class="call-icon" onclick="startCall('Tonda')">📞</span></div>
+            <div class="contact">Jirka <span class="call-icon" onclick="startCall('Jirka')">📞</span></div>
+            <div class="contact">Adam <span class="call-icon" onclick="startCall('Adam')">📞</span></div>
+            <div class="contact">Pepa <span class="call-icon" onclick="startCall('Pepa')">📞</span></div>
+            <div class="contact">Jindra <span class="call-icon" onclick="startCall('Jindra')">📞</span></div>
+            <div class="contact">Vojta <span class="call-icon" onclick="startCall('Vojta')">📞</span></div>
+            <div class="contact">Martin <span class="call-icon" onclick="startCall('Martin')">📞</span></div>
+            <div class="contact">Oliver <span class="call-icon" onclick="startCall('Oliver')">📞</span></div>
+        </div>
+        <a href="hlavni_telefon.html">
+            <img src="obrazky/leva_sipka.png" alt="Back" class="back-arrow">
+        </a>
+    </div>
+
+    <div class="call-screen" id="callScreen">
+        <div class="status-bar">9:54</div>
+        <div class="call-info">
+            <p>Volání....</p>
+        </div>
+        <h2 id="callName">Michal</h2>
+        <div class="end-call">
+            <img src="obrazky/ukoncit.png" alt="Ukončit hovor" onclick="endCall()">
+        </div>
+    </div>
+
+    <script>
+        function updateTime() {
+            var currentTime = new Date();
+            var hours = currentTime.getHours();
+            var minutes = currentTime.getMinutes();
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById('time').textContent = hours + ':' + minutes;
+        }
+        setInterval(updateTime, 60000);
+        updateTime();
+
+        function toggleContactInput() {
+            let inputContainer = document.getElementById("contactInputContainer");
+            inputContainer.style.display = inputContainer.style.display === "none" || inputContainer.style.display === "" ? "block" : "none";
+        }
+
+        function addContact() {
+            let contactList = document.getElementById("contactList");
+            let contactName = document.getElementById("contactName").value;
+            if (contactName.trim() !== "") {
+                let newContact = document.createElement("div");
+                newContact.className = "contact";
+                newContact.innerHTML = contactName + ' <span class="call-icon" onclick="startCall(\'' + contactName + '\')">📞</span>';
+                contactList.appendChild(newContact);
+                contactList.scrollTop = contactList.scrollHeight;
+                document.getElementById("contactName").value = "";
+                document.getElementById("contactInputContainer").style.display = "none";
+            }
+        }
+
+        function startCall(name) {
+            document.getElementById("callName").textContent = name;
+            document.getElementById("callScreen").style.display = "flex";
+            let sound = document.getElementById("callSound");
+            sound.play();
+        }
+
+        function endCall() {
+            document.getElementById("callScreen").style.display = "none";
+        }
+    </script>
+</body>
+</html>
