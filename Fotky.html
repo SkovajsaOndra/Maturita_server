@@ -6,69 +6,7 @@
     <title>Galerie</title>
     <link rel="stylesheet" href="styly_celkove.css">
     <style>
-        .gallery-container {
-            padding: 0px;
-            margin-top:80px;
-            overflow: hidden;
-        }
-        
-        .gallery-header {
-            background: linear-gradient(45deg, #ff7e5f, #feb47b);
-            color: white;
-            padding: 15px;
-            margin: -15px -15px 20px -15px;
-            border-radius: 15px 15px 0 0;
-            text-align: center;
-            font-size: 1.5em;
-            font-weight: 600;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            overflow: hidden;
-            width:280px;
-            
-        }
-        
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            padding: 0;
-            justify-items: center;
-            
-        }
-        
-        .gallery-item {
-            background: white;
-            padding: 3px;
-            border-radius: 12px;
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            overflow:hidden;
-        }
-        
-        .gallery-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: filter 0.3s;
-        }
-        
-        .gallery-item img:hover {
-            filter: brightness(1.1);
-        }
-
-        /* Modal styling */
+    
         .modal {
             display: none;
             position: fixed;
@@ -84,14 +22,7 @@
             overflow: hidden;
         }
         
-        .modal-content {
-            position: relative;
-            margin: auto;
-            max-width: 90%;
-            max-height: 80%;
-            animation: fadeIn 0.3s;
-            
-        }
+       
         
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -105,52 +36,16 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
         
-        .modal-close {
-            position: absolute;
-            top: -30px;
-            right: 5px;
-            font-size: 28px;
-            color: white;
-            cursor: pointer;
-            background: rgba(0,0,0,0.5);
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: background 0.2s;
-        }
         
-        .modal-close:hover {
-            background: rgba(255,0,0,0.7);
-        }
         
-        .back-arrow {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255,255,255,0.9);
-            border-radius: 50%;
-            padding: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            transition: transform 0.2s, background-color 0.2s;
-        }
         
-        .back-arrow:hover {
-            transform: scale(1.1);
-            background-color: #ffffff;
-        }
         
-        /* Status bar styling */
-        .status-bar {
-            background-color: #fff;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-           width: 267px;
-           border-radius: 25px;
-        }
+        
+        
+        
+        
+       
+        
     </style>
 </head>
 <body>
@@ -193,7 +88,7 @@
     <!-- Modal window -->
     <div id="imageModal" class="modal">
         <div class="modal-content">
-            <span class="modal-close">&times;</span>
+            <span class="modal-close-fotky">&times;</span>
             <img id="modalImage" src="" alt="Zvětšený obrázek">
         </div>
     </div>
@@ -215,7 +110,7 @@
             var images = document.querySelectorAll(".gallery img");
             var modal = document.getElementById("imageModal");
             var modalImage = document.getElementById("modalImage");
-            var closeModal = document.querySelector(".modal-close");
+            var closeModal = document.querySelector(".modal-close-fotky");
 
             images.forEach(img => {
                 img.addEventListener("click", function () {
