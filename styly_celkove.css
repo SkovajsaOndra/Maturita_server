@@ -1,3 +1,7 @@
+*{
+    user-select: none;
+    
+}
 body {
     background-image: url('obrazky/vecteezy_ai-generated-sky-with-abstract-lines-background_42197330.jpg');
     display: flex;
@@ -139,7 +143,24 @@ body {
     justify-content: space-between;
     border: 8px solid black;
 }
-
+.phonevolani {
+    width: 7.5cm;
+    height: 15cm;
+    background-color: #ffffff;
+    
+    background-size: cover; 
+    background-position: center; 
+    border-radius: 30px;
+    padding: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+    color: #fff;
+    justify-content: space-between;
+    border: 8px solid black;
+}
 .phonechrome {
     width: 7.5cm;
     height: 15cm;
@@ -475,6 +496,7 @@ body {
         transform: translate(-50%, -50%) scale(1.1);
     }
 }
+
 .container {
     position: relative;
 }
@@ -875,4 +897,88 @@ body {
     background: #c29584; 
     padding: 20px; 
     margin-top: 37px;
+}
+.gallery-container {
+    padding: 0px;
+    margin-top:80px;
+    overflow: hidden;
+}
+.modal-close:hover {
+    background: rgba(255,0,0,0.7);
+}
+.gallery-header {
+    background: linear-gradient(45deg, #ff7e5f, #feb47b);
+    color: white;
+    padding: 15px;
+    margin: -15px -15px 20px -15px;
+    border-radius: 15px 15px 0 0;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
+    width:280px;
+    
+}
+.galleryfotky {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 0;
+    justify-items: center;
+    
+}
+.gallery-item {
+    background: white;
+    padding: 3px;
+    border-radius: 12px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    overflow:hidden;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: filter 0.3s;
+}
+.gallery-item img:hover {
+    filter: brightness(1.1);
+}
+.modal-content {
+    position: relative;
+    margin: auto;
+    max-width: 90%;
+    max-height: 80%;
+    animation: fadeIn 0.3s;
+    
+}
+.modal-close-fotky {
+    position: absolute;
+    top: -30px;
+    right: 5px;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+    background: rgba(0,0,0,0.5);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.2s;
 }
