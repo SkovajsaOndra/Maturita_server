@@ -982,3 +982,24 @@ body {
     align-items: center;
     transition: background 0.2s;
 }
+.modal-fotky-custom {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.7); /* tmavé pozadí */
+}
+
+.modal-fotky-custom img {
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
