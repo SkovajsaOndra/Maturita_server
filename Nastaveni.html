@@ -20,12 +20,12 @@
             
         </div>
 
-        <!-- Side Buttons -->
+        
         <div class="power-button"></div>
         <div class="volume-button-up"></div>
         <div class="volume-button-down"></div>
 
-        <!-- Settings Header and Options -->
+       
         <div class="header">Nastaveni</div>
         
         <div class="settings-option">
@@ -43,13 +43,13 @@
             <div id="bluetooth" class="toggle-switch" onclick="toggleSwitch(this)"></div>
         </div>
         
-        <!-- MOS Version -->
+      
         <div class="settings-option2">
             <span>MOS verze</span>
             <span>1.1</span>
         </div>
 
-        <!-- Back Arrow Image -->
+       
         <a href="hlavni_telefon.html">
             <img src="obrazky/leva_sipka.png" alt="Back" class="back-arrow">
         </a>
@@ -58,25 +58,25 @@
     <script>
         
         function toggleSwitch(element) {
-            // Check if the element is Airplane Mode
+            
             if (element.id === "airplane-mode") {
                 element.classList.toggle("active");
                 const wifiSwitch = document.getElementById("wifi");
                 const bluetoothSwitch = document.getElementById("bluetooth");
 
                 if (element.classList.contains("active")) {
-                    // Airplane Mode ON: turn off Wi-Fi and Bluetooth if they are on
+                   
                     wifiSwitch.classList.remove("active");
                     bluetoothSwitch.classList.remove("active");
                 }
             } else {
-                // If Airplane Mode is active, prevent toggling Wi-Fi or Bluetooth on
+           
                 const airplaneMode = document.getElementById("airplane-mode");
                 if (airplaneMode.classList.contains("active") && !element.classList.contains("active")) {
-                    // Airplane Mode is on; do nothing when clicking Wi-Fi or Bluetooth to turn on
+                    
                     return;
                 }
-                // Toggle the switch normally if Airplane Mode is not blocking it
+                
                 element.classList.toggle("active");
             }
         }
@@ -90,8 +90,8 @@
             document.getElementById('time').textContent = timeString;
         }
 
-        setInterval(updateTime, 60000); // Aktualizuje čas každou minutu
-        updateTime(); // Spustí funkci při načtení stránky
+        setInterval(updateTime, 60000); 
+        updateTime(); 
         function toggleScreen() {
             const screen = document.getElementById('screen');
             if (screen.style.display === 'none') {
