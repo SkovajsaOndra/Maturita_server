@@ -55,8 +55,8 @@ function updateTime() {
             document.getElementById('time').textContent = timeString;
         }
 
-        setInterval(updateTime, 60000); // Aktualizuje čas každou minutu
-        updateTime(); // Spustí funkci při načtení stránky
+        setInterval(updateTime, 60000); 
+        updateTime(); 
         function toggleScreen() {
             const screen = document.getElementById('screen');
             if (screen.style.display === 'none') {
