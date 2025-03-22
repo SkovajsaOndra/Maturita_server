@@ -85,7 +85,7 @@
         </a>
     </div>
 
-    <!-- Modal window -->
+    
     <div id="imageModal" class="modal">
         <div class="modal-content">
             <span class="modal-close-fotky">&times;</span>
@@ -105,7 +105,7 @@
         setInterval(updateTime, 60000);
         updateTime();
 
-        // Image enlargement function
+       
         document.addEventListener("DOMContentLoaded", function () {
             var images = document.querySelectorAll(".gallery img");
             var modal = document.getElementById("imageModal");
@@ -116,19 +116,19 @@
                 img.addEventListener("click", function () {
                     modalImage.src = this.src;
                     modal.style.display = "flex";
-                    document.body.style.overflow = "hidden"; // Prevent scrolling when modal is open
+                    document.body.style.overflow = "hidden"; 
                 });
             });
 
             closeModal.addEventListener("click", function () {
                 modal.style.display = "none";
-                document.body.style.overflow = "auto"; // Enable scrolling again
+                document.body.style.overflow = "auto"; 
             });
 
             modal.addEventListener("click", function (e) {
                 if (e.target === modal) {
                     modal.style.display = "none";
-                    document.body.style.overflow = "auto"; // Enable scrolling again
+                    document.body.style.overflow = "auto"; 
                 }
             });
             
