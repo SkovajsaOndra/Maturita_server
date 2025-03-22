@@ -26,11 +26,11 @@
         <div class="icon-grid">
             <div class="icon-container">
                 <div class="icon">
-                    <a href="Nastaveni.html">
-                        <img src="obrazky/nastaveni.png" alt="Nastavení">
+                    <a href="toneboto.html">
+                        <img src="obrazky/toneboto.png" alt="To nebo to">
                     </a>
                 </div>
-                <span class="icon-label">Nastavení</span>
+                <span class="icon-label">To nebo To</span>
             </div>
             <div class="icon-container">
                 <div class="icon">
@@ -100,7 +100,8 @@
         
         <div class="bottom-icons">
             <div class="icon">
-                <img src="obrazky/telefon_2.png" alt="Telefon">
+                <a href="Nastaveni.html"></a>
+                <img src="obrazky/nastaveni.png" alt="Telefon">
             </div>
             <div class="icon">
                 <a href="volani.html">
@@ -114,7 +115,7 @@
             </div>
         </div>
         
-        <div class="power-button" id="power-button" onclick="pwr_btn()"></div> <!-- Tlačítko zapnutí -->
+        <div class="power-button" id="power-button" onclick="pwr_btn()"></div> 
         <div class="volume-button-up"></div>
         <div class="volume-button-down"></div>
     </div>
@@ -130,8 +131,8 @@
             document.getElementById('time').textContent = timeString;
         }
 
-        setInterval(updateTime, 60000); // Aktualizuje čas každou minutu
-        updateTime(); // Spustí funkci při načtení stránky
+        setInterval(updateTime, 60000); 
+        updateTime(); 
         function toggleScreen() {
             const screen = document.getElementById('screen');
             if (screen.style.display === 'none') {
