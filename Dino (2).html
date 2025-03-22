@@ -68,12 +68,12 @@
     let backgroundX = 0;
     
    
-    const gameSpeed = 1.6; 
+    const gameSpeed = 1.4; 
     
    
     const backgroundSpeed = gameSpeed;
 
-    let dino = { x: 50, y: canvas.height - groundOffset - 40, width: 40, height: 40, velocityY: 0, gravity: 0.2, jumpStrength: -10, jumping: false };
+    let dino = { x: 50, y: canvas.height - groundOffset - 40, width: 40, height: 40, velocityY: 0, gravity: 0.2, jumpStrength: -8, jumping: false };
     let obstacles = [];
     let frame = 0, score = 0;
     let gameOver = false, gameStarted = false;
@@ -173,7 +173,7 @@
         gameOver = false;
         gameStarted = false;
         score = 0;
-        dino = { x: 50, y: canvas.height - groundOffset - 40, width: 40, height: 40, velocityY: 0, gravity: 0.2, jumpStrength: -10, jumping: false };
+        dino = { x: 50, y: canvas.height - groundOffset - 40, width: 40, height: 40, velocityY: 0, gravity: 0.2, jumpStrength: -8, jumping: false };
         obstacles = [];
         gameOverScreen.style.display = 'none';
         startButton.style.display = 'block';
