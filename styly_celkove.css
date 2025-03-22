@@ -194,15 +194,31 @@ body {
     background-color: black;
     color: white;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 15px;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0;
     font-size: 14px;
-    width: 90%;
+    width: calc(100% - 0px); 
+    
     position: absolute;
     top: 0;
-    left: 0;
+    z-index: 2;
+    border-radius: 18px 18px 0 0;
 }
+
+
+
+.top-bar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 6px; 
+    padding: 0 15px;
+}
+
+
+
 .notch {
     width: 120px;
     height: 30px;
@@ -227,7 +243,7 @@ body {
 .status-bar-nastaveni {
     width: 100%;
     position: absolute;
-    top: 15px; /* Udrží ho nahoře */
+    top: 15px; 
     left: 0;
     display: flex;
     justify-content: space-between;
@@ -239,7 +255,7 @@ body {
 .status-bar {
     width: 100%;
     position: absolute;
-    top: 0; /* Udrží ho nahoře */
+    top: 0; 
     left: 0;
     display: flex;
     justify-content: space-between;
@@ -260,7 +276,7 @@ body {
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     justify-items: center;
-    margin-top: 72px; /* Zvýšení hodnoty je posune dolů */
+    margin-top: 72px; 
 }
 .icon-container {
     display: flex;
@@ -994,7 +1010,7 @@ body {
     align-items: center;
     transition: opacity 0.3s ease;
     overflow: hidden;
-    background-color: rgba(0, 0, 0, 0.7); /* tmavé pozadí */
+    background-color: rgba(0, 0, 0, 0.7); 
 }
 
 .modal-fotky-custom img {
@@ -1002,4 +1018,149 @@ body {
     max-height: 80vh;
     border-radius: 8px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+.notchfotak {
+    width: 120px;
+    height: 30px;
+    background-color: #000000;
+    border-radius: 0 0 15px 15px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+}
+
+.sensorfotak {
+    width: 9px;
+    height: 9px;
+    background-color: #333;
+    border-radius: 50%;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+.kontakty{
+    transform: translate(-70%, 180%);
+}
+.end-call {
+    margin-top: 40px;
+}
+.end-call img {
+    width: 60px;
+    cursor: pointer;
+}
+#callName {
+    font-size: 2.5em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+.call-info {
+    text-align: center;
+    font-size: 1.2em;
+    margin-top: -40px;
+}
+.title {
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 5px;
+    color: black;
+}
+.contact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #444;
+    font-size: 1.2em;
+}
+.contact-list::-webkit-scrollbar {
+    display: none;
+}
+.contact-list {
+    height: 60vh;
+    overflow-y: auto;
+    color: black;
+    border-radius: 15px;
+    padding: 10px;
+    width: 90%;
+    margin-top: 60%; 
+    margin-bottom: 20%;
+    scrollbar-width: none;
+}
+.contact-input-container input {
+    padding: 5px;
+    margin-right: 5px;
+}
+.contact-input-container {
+    display: none;
+    position: absolute;
+    top: 90px;
+    right: 10px;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+.add-contact {
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    font-size: 2em;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+}
+.call-screen {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8cm;
+    height: 15.5cm;
+    background: black;
+    color: white;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    border-radius: 30px;
+    background-image: url('IMG_2085.png');
+    background-size: cover;
+    background-position: center;
+}
+.coin-container {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.result-text {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.coin {
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+    object-fit: contain;
+}
+
+.spin {
+    animation: spinCoin 1s linear forwards;
+}
+
+@keyframes spinCoin {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(1080deg); }
 }
