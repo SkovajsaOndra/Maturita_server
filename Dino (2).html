@@ -129,7 +129,7 @@
         drawDino();
         drawObstacles();
         
-        // Update dino position if jumping
+       
         if (dino.jumping) {
             dino.velocityY += dino.gravity;
             dino.y += dino.velocityY;
@@ -141,18 +141,18 @@
             }
         }
         
-        // Generate obstacles
+       
         if (obstacles.length === 0 || obstacles[obstacles.length - 1].x < canvas.width - 200) {
             generateObstacle();
         }
         
-        // Clean up obstacles that have moved off-screen
+       
         obstacles = obstacles.filter(obs => obs.x > -obs.width);
         
         requestAnimationFrame(updateGame);
     }
 
-    // Event listeners for jumping
+   
     document.addEventListener('keydown', function(e) {
         if (e.code === 'Space') {
             jump();
