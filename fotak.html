@@ -22,7 +22,7 @@
         </div>
         <div class="camera-container">
             <video class="camera-feed" autoplay playsinline></video>
-            <p id="camera-error" style="display: none; color: red;">Chyba: Kamera nebyla nalezena.</p>
+          
         </div>
         <div class="bottom-bar">
             <div class="shutter-button"></div>
@@ -54,10 +54,10 @@ const errorText = document.querySelector('.camera-error');
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: { width: 1280, height: 720 } });
                 videoElement.srcObject = stream;
-                errorText.style.display = 'none';
+                
             } catch (error) {
-                console.error('Chyba při přístupu ke kameře:', error);
-                errorText.style.display = 'block';
+               
+                
             }
         }
         startCamera();
